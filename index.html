@@ -65,10 +65,10 @@
     .navlinks a:hover { color: var(--text); }
 
     .hero {
-      min-height: 74vh;
+      min-height: 72vh;
       display: grid;
       align-items: center;
-      padding: 90px 0 70px;
+      padding: 90px 0 56px;
     }
 
     .eyebrow {
@@ -119,6 +119,22 @@
     }
     .btn.primary { background: var(--accent); color: #17120a; border-color: var(--accent); }
     .btn:hover { transform: translateY(-2px); }
+
+    .visual { padding: 0 0 54px; }
+    .visual-frame {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--panel-2);
+      box-shadow: 0 28px 80px rgba(0,0,0,.28);
+    }
+    .visual-frame img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 3 / 2;
+      object-fit: cover;
+    }
 
     section { padding: 76px 0; }
     .section-head { max-width: 760px; margin-bottom: 32px; }
@@ -221,7 +237,9 @@
     @media (max-width: 780px) {
       nav { min-height: 60px; }
       .navlinks a:not(:last-child) { display: none; }
-      .hero { min-height: auto; padding-top: 72px; }
+      .hero { min-height: auto; padding-top: 72px; padding-bottom: 44px; }
+      .visual { padding-bottom: 34px; }
+      .visual-frame { border-radius: 10px; }
       .topics { grid-template-columns: 1fr; }
       .topic summary { min-height: 76px; padding: 18px 20px; }
       .topic-content { padding: 0 20px 20px; }
@@ -257,6 +275,14 @@
       </div>
     </section>
 
+    <div class="visual" aria-label="Eindruck von Tür auf und teilnehmen">
+      <div class="wrap">
+        <div class="visual-frame">
+          <img src="assets/tuer-auf-und-teilnehmen.webp" alt="Tür auf und teilnehmen – offene Gesprächsrunde in Dresden">
+        </div>
+      </div>
+    </div>
+
     <section id="idee">
       <div class="wrap">
         <div class="section-head">
@@ -277,45 +303,14 @@
         </div>
 
         <div class="topics">
-          <details class="topic">
-            <summary>KI</summary>
-            <div class="topic-content"><p>Was davon bringt dir heute wirklich etwas?</p></div>
-          </details>
-
-          <details class="topic">
-            <summary>Finanzen</summary>
-            <div class="topic-content"><p>Geld verstehen, Entscheidungen treffen, Möglichkeiten erkennen.</p></div>
-          </details>
-
-          <details class="topic">
-            <summary>Absicherung</summary>
-            <div class="topic-content"><p>Was sollte geregelt sein, bevor es plötzlich wichtig wird?</p></div>
-          </details>
-
-          <details class="topic">
-            <summary>Selbstständigkeit</summary>
-            <div class="topic-content"><p>Freiheit, Verantwortung und die Dinge dazwischen.</p></div>
-          </details>
-
-          <details class="topic">
-            <summary>Digitalisierung</summary>
-            <div class="topic-content"><p>Wo kann Technik Arbeit einfacher machen, statt neue Arbeit zu schaffen?</p></div>
-          </details>
-
-          <details class="topic">
-            <summary>Energie</summary>
-            <div class="topic-content"><p>Was lohnt sich wirklich – und für wen?</p></div>
-          </details>
-
-          <details class="topic">
-            <summary>Entscheidungen</summary>
-            <div class="topic-content"><p>Was machst du, wenn es keine perfekte Antwort gibt?</p></div>
-          </details>
-
-          <details class="topic">
-            <summary>Und sonst?</summary>
-            <div class="topic-content"><p>Gute Gespräche müssen nicht in eine Schublade passen.</p></div>
-          </details>
+          <details class="topic"><summary>KI</summary><div class="topic-content"><p>Was davon bringt dir heute wirklich etwas?</p></div></details>
+          <details class="topic"><summary>Finanzen</summary><div class="topic-content"><p>Geld verstehen, Entscheidungen treffen, Möglichkeiten erkennen.</p></div></details>
+          <details class="topic"><summary>Absicherung</summary><div class="topic-content"><p>Was sollte geregelt sein, bevor es plötzlich wichtig wird?</p></div></details>
+          <details class="topic"><summary>Selbstständigkeit</summary><div class="topic-content"><p>Freiheit, Verantwortung und die Dinge dazwischen.</p></div></details>
+          <details class="topic"><summary>Digitalisierung</summary><div class="topic-content"><p>Wo kann Technik Arbeit einfacher machen, statt neue Arbeit zu schaffen?</p></div></details>
+          <details class="topic"><summary>Energie</summary><div class="topic-content"><p>Was lohnt sich wirklich – und für wen?</p></div></details>
+          <details class="topic"><summary>Entscheidungen</summary><div class="topic-content"><p>Was machst du, wenn es keine perfekte Antwort gibt?</p></div></details>
+          <details class="topic"><summary>Und sonst?</summary><div class="topic-content"><p>Gute Gespräche müssen nicht in eine Schublade passen.</p></div></details>
         </div>
 
         <p class="hint">Die Themen wechseln. Was daraus ein Abend wird, entscheidet sich nicht nur auf dieser Seite, sondern mit den Menschen im Raum.</p>
