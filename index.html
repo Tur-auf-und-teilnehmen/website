@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Tür auf und teilnehmen – ein offener Themenraum in Dresden für neugierige Menschen, echte Gespräche und unterschiedliche Perspektiven.">
+  <title>Tür auf und teilnehmen</title>
+  <style>
+    :root {
+      --bg: #0d0f12;
+      --panel: #15191e;
+      --panel-2: #101318;
+      --text: #f3f0e8;
+      --muted: #a8adb4;
+      --line: #2a3038;
+      --accent: #f1b24b;
+      --accent-soft: rgba(241,178,75,.12);
+      --max: 1120px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 85% 5%, rgba(241,178,75,.08), transparent 28rem),
+        linear-gradient(180deg, #0d0f12 0%, #0a0c0f 100%);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; }
+    .wrap { width: min(calc(100% - 40px), var(--max)); margin: 0 auto; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(14px);
+      background: rgba(13,15,18,.78);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+
+    nav {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      font-weight: 800;
+      letter-spacing: -.02em;
+      text-decoration: none;
+    }
+
+    .navlinks { display: flex; gap: 20px; align-items: center; }
+    .navlinks a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .94rem;
+    }
+    .navlinks a:hover { color: var(--text); }
+
+    .hero {
+      min-height: 74vh;
+      display: grid;
+      align-items: center;
+      padding: 90px 0 70px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--accent);
+      font-size: .82rem;
+      text-transform: uppercase;
+      letter-spacing: .15em;
+      font-weight: 800;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 28px;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    h1 {
+      max-width: 920px;
+      margin: 22px 0 24px;
+      font-size: clamp(3rem, 8vw, 7.2rem);
+      line-height: .93;
+      letter-spacing: -.065em;
+    }
+
+    .lead {
+      max-width: 720px;
+      color: #c8ccd1;
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      margin: 0;
+    }
+
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 18px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      text-decoration: none;
+      font-weight: 750;
+      transition: .18s ease;
+    }
+    .btn.primary { background: var(--accent); color: #17120a; border-color: var(--accent); }
+    .btn:hover { transform: translateY(-2px); }
+
+    section { padding: 76px 0; }
+    .section-head { max-width: 760px; margin-bottom: 32px; }
+    .section-head h2 {
+      margin: 8px 0 12px;
+      font-size: clamp(2rem, 4vw, 3.6rem);
+      line-height: 1;
+      letter-spacing: -.045em;
+    }
+    .section-head p { color: var(--muted); margin: 0; font-size: 1.05rem; }
+
+    .statement {
+      padding: 32px;
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--accent);
+      background: linear-gradient(135deg, var(--accent-soft), transparent 65%);
+      border-radius: 10px;
+      font-size: clamp(1.25rem, 3vw, 2rem);
+      font-weight: 750;
+      letter-spacing: -.025em;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      min-height: 210px;
+      padding: 24px;
+      background: linear-gradient(160deg, var(--panel), var(--panel-2));
+      border: 1px solid var(--line);
+      border-radius: 10px;
+    }
+    .card .num { color: var(--accent); font-size: .8rem; font-weight: 900; letter-spacing: .13em; }
+    .card h3 { margin: 28px 0 9px; font-size: 1.25rem; }
+    .card p { margin: 0; color: var(--muted); }
+
+    .questions {
+      display: grid;
+      gap: 1px;
+      border: 1px solid var(--line);
+      background: var(--line);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .question {
+      background: #101318;
+      padding: 22px 24px;
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+      font-weight: 700;
+    }
+    .question span { color: var(--accent); margin-right: 10px; }
+
+    .event {
+      display: grid;
+      grid-template-columns: 1.4fr .6fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+    .event-main, .event-side {
+      border: 1px solid var(--line);
+      background: var(--panel-2);
+      border-radius: 10px;
+      padding: 28px;
+    }
+    .event-main h3 { font-size: 1.8rem; margin: 4px 0 10px; }
+    .event-main p, .event-side p { color: var(--muted); }
+    .event-side strong { color: var(--accent); font-size: 1.15rem; }
+
+    footer {
+      padding: 42px 0 58px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+    }
+    footer strong { color: var(--text); }
+
+    @media (max-width: 780px) {
+      .navlinks a:not(:last-child) { display: none; }
+      .hero { min-height: auto; padding-top: 80px; }
+      .grid { grid-template-columns: 1fr; }
+      .event { grid-template-columns: 1fr; }
+      section { padding: 58px 0; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <nav>
+        <a class="brand" href="#top">Tür auf und teilnehmen</a>
+        <div class="navlinks">
+          <a href="#idee">Die Idee</a>
+          <a href="#themen">Themen</a>
+          <a href="#termin">Nächster Termin</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap">
+        <div class="eyebrow">Dresden · offen · neugierig</div>
+        <h1>Tür auf.<br>Teilnehmen.</h1>
+        <p class="lead">Ein kleiner Themenraum für Menschen, die neugierig sind, sich austauschen wollen und Lust auf unterschiedliche Perspektiven haben. Kein Verkaufsabend. Kein Frontalvortrag. Einfach gute Fragen, echte Gespräche und Dinge, die im Alltag etwas bringen.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#themen">Themen entdecken</a>
+          <a class="btn" href="#termin">Zum nächsten Treffen</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="idee">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Die Idee</div>
+          <h2>Unterschiedliche Themen. Unterschiedliche Menschen.</h2>
+          <p>Es geht nicht darum, schon alles zu wissen. Wir öffnen Fragen, teilen Erfahrungen und schauen gemeinsam, was davon wirklich relevant ist.</p>
+        </div>
+        <div class="statement">Erst verstehen, dann Inhalt geben. Erst Wert geben, dann Raum geben.</div>
+      </div>
+    </section>
+
+    <section id="themen">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Themensammlung</div>
+          <h2>Worüber wir sprechen können.</h2>
+          <p>Die Themen wechseln bewusst. Diese Sammlung ist keine starre Agenda, sondern ein offener Fundus, aus dem einzelne Abende entstehen können.</p>
+        </div>
+
+        <div class="grid">
+          <article class="card"><div class="num">01</div><h3>KI & Alltag</h3><p>Was kann KI heute wirklich sinnvoll übernehmen? Denken, organisieren, recherchieren, schreiben und Arbeit vereinfachen.</p></article>
+          <article class="card"><div class="num">02</div><h3>Finanzen & Freiheit</h3><p>Geldflüsse verstehen, Vermögen aufbauen, Steuern einordnen und bessere Entscheidungen treffen – ohne Produktvortrag.</p></article>
+          <article class="card"><div class="num">03</div><h3>Absicherung</h3><p>Einkommen, Vorsorge, Vollmachten und Risiken: Was ist wirklich relevant und was wird oft erst bemerkt, wenn es zu spät ist?</p></article>
+          <article class="card"><div class="num">04</div><h3>Selbstständigkeit</h3><p>Freiheit, Verantwortung, Liquidität, Organisation und die Frage, wie Arbeit nicht zum selbstgebauten Hamsterrad wird.</p></article>
+          <article class="card"><div class="num">05</div><h3>Digitalisierung & Prozesse</h3><p>Copy & Paste, Excel-Inseln, E-Mail-Schleifen und doppelte Arbeit erkennen – und dort automatisieren, wo es tatsächlich hilft.</p></article>
+          <article class="card"><div class="num">06</div><h3>Energie & Wohnen</h3><p>Solar, Eigenverbrauch, Speicher, Finanzierung und die nüchterne Frage: Wann rechnet sich etwas wirklich?</p></article>
+          <article class="card"><div class="num">07</div><h3>Entscheidungen</h3><p>Wie entscheidest du, wenn Informationen fehlen, Möglichkeiten offen sind und es keine perfekte Antwort gibt?</p></article>
+          <article class="card"><div class="num">08</div><h3>Coding mit KI</h3><p>Schreibst du noch – oder sagst du schon, was du willst? Moderne Entwicklung, Agenten, Reviews und Sicherheitsnetze verständlich gemacht.</p></article>
+          <article class="card"><div class="num">09</div><h3>Offene Tür</h3><p>Neue Ideen sind ausdrücklich willkommen. Gute Themen müssen nicht in eine Schublade passen – sie müssen Gesprächsstoff liefern.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Fragen statt Vortragstitel</div>
+          <h2>Ein Abend beginnt mit einer guten Frage.</h2>
+        </div>
+        <div class="questions">
+          <div class="question"><span>→</span>Was kann KI heute wirklich sinnvoll für dich übernehmen?</div>
+          <div class="question"><span>→</span>Wie machst du aus deinen Steuern Privatvermögen?</div>
+          <div class="question"><span>→</span>Wie schützt du dein Einkommen, wenn du morgen nicht mehr arbeiten kannst?</div>
+          <div class="question"><span>→</span>Wo verschwendet dein Unternehmen jeden Tag Zeit, ohne dass du es merkst?</div>
+          <div class="question"><span>→</span>Wie triffst du Entscheidungen, wenn du nicht alle Informationen hast?</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="termin">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Treffen</div>
+          <h2>Der erste Abend kommt.</h2>
+        </div>
+        <div class="event">
+          <div class="event-main">
+            <small>NÄCHSTER TERMIN</small>
+            <h3>Noch offen.</h3>
+            <p>Wir bauen das Format gerade auf. Sobald der erste Termin feststeht, landet er hier – klein, persönlich und mit maximal zehn Teilnehmern.</p>
+          </div>
+          <div class="event-side">
+            <strong>1× im Monat</strong>
+            <p>Bewusst kein Großevent. Genug Raum für Gespräche, Fragen und Menschen, die tatsächlich miteinander reden.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <strong>Tür auf und teilnehmen</strong><br>
+      Dresden · unterschiedliche Themen · echte Gespräche
+    </div>
+  </footer>
+</body>
+</html>
