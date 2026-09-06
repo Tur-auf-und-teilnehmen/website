@@ -141,38 +141,59 @@
       letter-spacing: -.025em;
     }
 
-    .grid {
+    .topics {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
     }
 
-    .card {
-      min-height: 210px;
-      padding: 24px;
+    .topic {
+      border: 1px solid var(--line);
       background: linear-gradient(160deg, var(--panel), var(--panel-2));
-      border: 1px solid var(--line);
-      border-radius: 10px;
-    }
-    .card .num { color: var(--accent); font-size: .8rem; font-weight: 900; letter-spacing: .13em; }
-    .card h3 { margin: 28px 0 9px; font-size: 1.25rem; }
-    .card p { margin: 0; color: var(--muted); }
-
-    .questions {
-      display: grid;
-      gap: 1px;
-      border: 1px solid var(--line);
-      background: var(--line);
       border-radius: 10px;
       overflow: hidden;
+      transition: border-color .18s ease, transform .18s ease;
     }
-    .question {
-      background: #101318;
+    .topic:hover { border-color: #404853; }
+    .topic[open] { border-color: rgba(241,178,75,.55); }
+
+    .topic summary {
+      list-style: none;
+      cursor: pointer;
+      min-height: 92px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
       padding: 22px 24px;
-      font-size: clamp(1.05rem, 2vw, 1.25rem);
-      font-weight: 700;
+      font-size: clamp(1.15rem, 2.4vw, 1.55rem);
+      font-weight: 760;
+      user-select: none;
     }
-    .question span { color: var(--accent); margin-right: 10px; }
+    .topic summary::-webkit-details-marker { display: none; }
+    .topic summary::after {
+      content: "+";
+      color: var(--accent);
+      font-size: 1.55rem;
+      line-height: 1;
+      font-weight: 400;
+      transition: transform .18s ease;
+    }
+    .topic[open] summary::after { transform: rotate(45deg); }
+
+    .topic-content {
+      padding: 0 24px 24px;
+      color: var(--muted);
+      max-width: 42rem;
+      font-size: 1rem;
+    }
+    .topic-content p { margin: 0; }
+
+    .hint {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: .94rem;
+    }
 
     .event {
       display: grid;
@@ -198,9 +219,12 @@
     footer strong { color: var(--text); }
 
     @media (max-width: 780px) {
+      nav { min-height: 60px; }
       .navlinks a:not(:last-child) { display: none; }
-      .hero { min-height: auto; padding-top: 80px; }
-      .grid { grid-template-columns: 1fr; }
+      .hero { min-height: auto; padding-top: 72px; }
+      .topics { grid-template-columns: 1fr; }
+      .topic summary { min-height: 76px; padding: 18px 20px; }
+      .topic-content { padding: 0 20px 20px; }
       .event { grid-template-columns: 1fr; }
       section { padding: 58px 0; }
     }
@@ -247,38 +271,54 @@
     <section id="themen">
       <div class="wrap">
         <div class="section-head">
-          <div class="eyebrow">Themensammlung</div>
-          <h2>Worüber wir sprechen können.</h2>
-          <p>Die Themen wechseln bewusst. Diese Sammlung ist keine starre Agenda, sondern ein offener Fundus, aus dem einzelne Abende entstehen können.</p>
+          <div class="eyebrow">Themen</div>
+          <h2>Was interessiert dich?</h2>
+          <p>Nicht alles muss sofort erklärt werden. Such dir ein Thema aus und öffne es.</p>
         </div>
 
-        <div class="grid">
-          <article class="card"><div class="num">01</div><h3>KI & Alltag</h3><p>Was kann KI heute wirklich sinnvoll übernehmen? Denken, organisieren, recherchieren, schreiben und Arbeit vereinfachen.</p></article>
-          <article class="card"><div class="num">02</div><h3>Finanzen & Freiheit</h3><p>Geldflüsse verstehen, Vermögen aufbauen, Steuern einordnen und bessere Entscheidungen treffen – ohne Produktvortrag.</p></article>
-          <article class="card"><div class="num">03</div><h3>Absicherung</h3><p>Einkommen, Vorsorge, Vollmachten und Risiken: Was ist wirklich relevant und was wird oft erst bemerkt, wenn es zu spät ist?</p></article>
-          <article class="card"><div class="num">04</div><h3>Selbstständigkeit</h3><p>Freiheit, Verantwortung, Liquidität, Organisation und die Frage, wie Arbeit nicht zum selbstgebauten Hamsterrad wird.</p></article>
-          <article class="card"><div class="num">05</div><h3>Digitalisierung & Prozesse</h3><p>Copy & Paste, Excel-Inseln, E-Mail-Schleifen und doppelte Arbeit erkennen – und dort automatisieren, wo es tatsächlich hilft.</p></article>
-          <article class="card"><div class="num">06</div><h3>Energie & Wohnen</h3><p>Solar, Eigenverbrauch, Speicher, Finanzierung und die nüchterne Frage: Wann rechnet sich etwas wirklich?</p></article>
-          <article class="card"><div class="num">07</div><h3>Entscheidungen</h3><p>Wie entscheidest du, wenn Informationen fehlen, Möglichkeiten offen sind und es keine perfekte Antwort gibt?</p></article>
-          <article class="card"><div class="num">08</div><h3>Coding mit KI</h3><p>Schreibst du noch – oder sagst du schon, was du willst? Moderne Entwicklung, Agenten, Reviews und Sicherheitsnetze verständlich gemacht.</p></article>
-          <article class="card"><div class="num">09</div><h3>Offene Tür</h3><p>Neue Ideen sind ausdrücklich willkommen. Gute Themen müssen nicht in eine Schublade passen – sie müssen Gesprächsstoff liefern.</p></article>
-        </div>
-      </div>
-    </section>
+        <div class="topics">
+          <details class="topic">
+            <summary>KI</summary>
+            <div class="topic-content"><p>Was davon bringt dir heute wirklich etwas?</p></div>
+          </details>
 
-    <section>
-      <div class="wrap">
-        <div class="section-head">
-          <div class="eyebrow">Fragen statt Vortragstitel</div>
-          <h2>Ein Abend beginnt mit einer guten Frage.</h2>
+          <details class="topic">
+            <summary>Finanzen</summary>
+            <div class="topic-content"><p>Geld verstehen, Entscheidungen treffen, Möglichkeiten erkennen.</p></div>
+          </details>
+
+          <details class="topic">
+            <summary>Absicherung</summary>
+            <div class="topic-content"><p>Was sollte geregelt sein, bevor es plötzlich wichtig wird?</p></div>
+          </details>
+
+          <details class="topic">
+            <summary>Selbstständigkeit</summary>
+            <div class="topic-content"><p>Freiheit, Verantwortung und die Dinge dazwischen.</p></div>
+          </details>
+
+          <details class="topic">
+            <summary>Digitalisierung</summary>
+            <div class="topic-content"><p>Wo kann Technik Arbeit einfacher machen, statt neue Arbeit zu schaffen?</p></div>
+          </details>
+
+          <details class="topic">
+            <summary>Energie</summary>
+            <div class="topic-content"><p>Was lohnt sich wirklich – und für wen?</p></div>
+          </details>
+
+          <details class="topic">
+            <summary>Entscheidungen</summary>
+            <div class="topic-content"><p>Was machst du, wenn es keine perfekte Antwort gibt?</p></div>
+          </details>
+
+          <details class="topic">
+            <summary>Und sonst?</summary>
+            <div class="topic-content"><p>Gute Gespräche müssen nicht in eine Schublade passen.</p></div>
+          </details>
         </div>
-        <div class="questions">
-          <div class="question"><span>→</span>Was kann KI heute wirklich sinnvoll für dich übernehmen?</div>
-          <div class="question"><span>→</span>Wie machst du aus deinen Steuern Privatvermögen?</div>
-          <div class="question"><span>→</span>Wie schützt du dein Einkommen, wenn du morgen nicht mehr arbeiten kannst?</div>
-          <div class="question"><span>→</span>Wo verschwendet dein Unternehmen jeden Tag Zeit, ohne dass du es merkst?</div>
-          <div class="question"><span>→</span>Wie triffst du Entscheidungen, wenn du nicht alle Informationen hast?</div>
-        </div>
+
+        <p class="hint">Die Themen wechseln. Was daraus ein Abend wird, entscheidet sich nicht nur auf dieser Seite, sondern mit den Menschen im Raum.</p>
       </div>
     </section>
 
