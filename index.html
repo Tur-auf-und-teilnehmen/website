@@ -150,6 +150,7 @@
     }
     .btn.primary { background: var(--accent); color: #17120a; border-color: var(--accent); }
     .btn:hover { transform: translateY(-2px); }
+    .mobile-label { display: none; }
 
     .hero-media {
       display: grid;
@@ -338,6 +339,18 @@
       .topic-content { padding: 0 20px 20px; }
       .event { grid-template-columns: 1fr; }
       section { padding: 58px 0; }
+      .vote-cta {
+        width: 100%;
+        min-height: 52px;
+        padding: 0 18px;
+        border-radius: 10px;
+        font-size: 1rem;
+        line-height: 1.2;
+        text-align: center;
+        white-space: nowrap;
+      }
+      .vote-cta .desktop-label { display: none; }
+      .vote-cta .mobile-label { display: inline; }
     }
   </style>
 </head>
@@ -438,7 +451,7 @@
 
         <p class="hint">Die Themen wechseln. Was daraus ein Abend wird, entscheidet sich nicht nur auf dieser Seite, sondern mit den Menschen im Raum.</p>
         <div class="hero-actions">
-          <a class="btn primary" href="https://github.com/Tur-auf-und-teilnehmen/website/discussions/1" target="_blank" rel="noopener noreferrer">Jetzt über das nächste Thema abstimmen</a>
+          <a class="btn primary vote-cta" href="https://github.com/Tur-auf-und-teilnehmen/website/discussions/1" target="_blank" rel="noopener noreferrer"><span class="desktop-label">Jetzt über das nächste Thema abstimmen</span><span class="mobile-label">Nächstes Thema wählen →</span></a>
         </div>
       </div>
     </section>
