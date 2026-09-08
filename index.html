@@ -151,6 +151,46 @@
     .btn.primary { background: var(--accent); color: #17120a; border-color: var(--accent); }
     .btn:hover { transform: translateY(-2px); }
 
+    .hero-media {
+      display: grid;
+      grid-template-columns: minmax(280px, 420px) minmax(0, 1fr);
+      gap: clamp(28px, 5vw, 72px);
+      align-items: center;
+      padding-bottom: 54px;
+    }
+    .hero-reel {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--panel-2);
+      box-shadow: 0 28px 80px rgba(0,0,0,.28);
+    }
+    .hero-reel video {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 9 / 16;
+      object-fit: cover;
+      background: #090b0e;
+    }
+    .hero-media-copy { max-width: 560px; }
+    .hero-media-copy h2 {
+      margin: 12px 0 18px;
+      font-size: clamp(2.2rem, 5vw, 4.8rem);
+      line-height: .95;
+      letter-spacing: -.05em;
+    }
+    .hero-media-copy p {
+      margin: 0;
+      color: #c8ccd1;
+      font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+    }
+    .hero-media-copy .event-meta {
+      margin-top: 24px;
+      color: var(--text);
+      font-weight: 750;
+    }
+
     .visual { padding: 0 0 54px; }
     .visual-frame {
       overflow: hidden;
@@ -273,6 +313,15 @@
     }
     footer strong { color: var(--text); }
 
+    @media (max-width: 900px) {
+      .hero-media {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+      .hero-reel { width: min(100%, 430px); }
+      .hero-media-copy { max-width: 680px; }
+    }
+
     @media (max-width: 780px) {
       nav { min-height: 60px; }
       .navlinks > a { display: none; }
@@ -280,6 +329,8 @@
       .social-links { gap: 6px; }
       .social-link { width: 36px; height: 36px; }
       .hero { min-height: auto; padding-top: 72px; padding-bottom: 44px; }
+      .hero-media { padding-bottom: 34px; }
+      .hero-reel { width: 100%; border-radius: 10px; }
       .visual { padding-bottom: 34px; }
       .visual-frame { border-radius: 10px; }
       .topics { grid-template-columns: 1fr; }
@@ -332,12 +383,21 @@
       </div>
     </section>
 
-    <div class="wrap" style="padding-bottom:46px;">
-      <div style="width:min(100%,430px);margin:0 auto;overflow:hidden;border:1px solid var(--line);border-radius:14px;background:var(--panel-2);box-shadow:0 28px 80px rgba(0,0,0,.28);">
-        <video controls playsinline preload="metadata" style="display:block;width:100%;height:auto;aspect-ratio:9/16;background:#090b0e;">
+    <div class="wrap hero-media">
+      <div class="hero-reel">
+        <video autoplay muted loop playsinline controls preload="metadata" aria-label="Save the Date – Tür auf und teilnehmen Kickoff am 23. Oktober 2026">
           <source src="events/tuer-auf-und-teilnehmen-kickoff-2026-10-23.mp4" type="video/mp4">
           Dein Browser unterstützt eingebettete Videos nicht.
         </video>
+      </div>
+      <div class="hero-media-copy">
+        <div class="eyebrow">Save the Date · Kickoff</div>
+        <h2>Der erste Abend steht.</h2>
+        <p>Am 23. Oktober öffnen wir zum ersten Mal die Tür. Ein Abend für Menschen, die neugierig sind, Fragen mitbringen und Lust auf unterschiedliche Perspektiven haben.</p>
+        <p class="event-meta">23.10.2026 · 18:00–21:00 Uhr · Dresden<br>Die genaue Location folgt.</p>
+        <div class="hero-actions" style="margin-top:24px;">
+          <a class="btn primary" href="events/tuer-auf-und-teilnehmen-kickoff-2026-10-23.ics" download>Termin vormerken</a>
+        </div>
       </div>
     </div>
 
