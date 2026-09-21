@@ -192,6 +192,48 @@
       font-weight: 750;
     }
 
+    .visit-media {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 260px;
+      gap: clamp(36px, 6vw, 88px);
+      align-items: center;
+      padding: 18px 0 64px;
+    }
+    .visit-reel {
+      order: 2;
+      width: 260px;
+      justify-self: end;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--panel-2);
+      box-shadow: 0 24px 60px rgba(0,0,0,.24);
+    }
+    .visit-reel video {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 9 / 16;
+      object-fit: cover;
+      background: #090b0e;
+    }
+    .visit-copy {
+      order: 1;
+      max-width: 620px;
+    }
+    .visit-copy h2 {
+      margin: 12px 0 18px;
+      font-size: clamp(2.1rem, 3.8vw, 3.8rem);
+      line-height: .96;
+      letter-spacing: -.05em;
+    }
+    .visit-copy p {
+      margin: 0;
+      color: #c8ccd1;
+      font-size: clamp(1.05rem, 1.8vw, 1.22rem);
+    }
+    .visit-copy .hero-actions { margin-top: 24px; }
+
     .visual { padding: 34px 0 0; }
     .visual-frame {
       overflow: hidden;
@@ -315,9 +357,19 @@
     footer strong { color: var(--text); }
 
     @media (max-width: 900px) {
+      .visit-media,
       .hero-media {
         grid-template-columns: 1fr;
         gap: 28px;
+      }
+      .visit-reel {
+        order: 1;
+        width: min(100%, 380px);
+        justify-self: start;
+      }
+      .visit-copy {
+        order: 2;
+        max-width: 680px;
       }
       .hero-reel { width: min(100%, 430px); }
       .hero-media-copy { max-width: 680px; }
@@ -335,6 +387,8 @@
         align-items: stretch;
       }
       .hero .hero-actions .btn { width: 100%; }
+      .visit-media { padding-bottom: 48px; }
+      .visit-reel { width: 100%; border-radius: 10px; }
       .hero-media { padding-bottom: 34px; }
       .hero-reel { width: 100%; border-radius: 10px; }
       .visual { padding-top: 26px; }
@@ -343,6 +397,14 @@
       .topic summary { min-height: 76px; padding: 18px 20px; }
       .topic-content { padding: 0 20px 20px; }
       .event { grid-template-columns: 1fr; }
+      .event-main .hero-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+        width: 100%;
+      }
+      .event-main .hero-actions .btn {
+        width: 100%;
+      }
       section { padding: 58px 0; }
       .vote-cta {
         width: 100%;
@@ -406,6 +468,24 @@
         </div>
       </div>
     </section>
+
+    <div class="wrap visit-media" aria-label="Vor Ort bei Tür auf und teilnehmen">
+      <div class="visit-reel">
+        <video autoplay muted loop playsinline preload="metadata" aria-label="Der Weg zum WIRkraum in Dresden">
+          <source src="events/tuer_auf_vor_ort_reel-2026-10-23.mp4" type="video/mp4">
+          Dein Browser unterstützt eingebettete Videos nicht.
+        </video>
+      </div>
+      <div class="visit-copy">
+        <div class="eyebrow">Vor Ort · WIRkraum</div>
+        <h2>Schon mal bis zur Tür.</h2>
+        <p>Damit du am 23. Oktober nicht erst suchen musst: ein kurzer Blick auf den Weg zum WIRkraum in der Alaunstraße 62.</p>
+        <div class="hero-actions">
+          <a class="btn" href="#termin">Zum Termin</a>
+          <a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=Konnektiv62%20Alaunstra%C3%9Fe%2062%2C%2001099%20Dresden" target="_blank" rel="noopener noreferrer">Ort auf Maps ansehen</a>
+        </div>
+      </div>
+    </div>
 
     <div class="wrap hero-media">
       <div class="hero-reel">
