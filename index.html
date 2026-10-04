@@ -355,6 +355,21 @@
       color: var(--muted);
     }
     footer strong { color: var(--text); }
+    .legal-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 12px;
+      font-size: .92rem;
+    }
+    .legal-links a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+    .legal-links a:hover {
+      color: var(--text);
+      text-decoration: underline;
+    }
 
     @media (max-width: 900px) {
       .visit-media,
@@ -593,6 +608,10 @@
     <div class="wrap">
       <strong>Tür auf und teilnehmen</strong><br>
       Dresden · unterschiedliche Themen · echte Gespräche
+      <div class="legal-links" aria-label="Rechtliches">
+        <a href="https://www.tonirenner.de/imprint/">Impressum</a>
+        <a href="https://www.tonirenner.de/privacy_policy/">Datenschutz</a>
+      </div>
     </div>
   </footer>
 </body>
