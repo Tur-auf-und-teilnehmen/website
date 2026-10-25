@@ -1,0 +1,60 @@
+{
+  "id": "kickoff-2026",
+  "title": "Tür auf und teilnehmen",
+  "subtitle": "Der erste Abend steht.",
+  "heroEyebrow": "Save the Date · Kickoff",
+  "eventEyebrow": "Save the Date · Kickoff",
+  "detailsButton": "Details zum Kickoff",
+  "summary": "Kickoff von „Tür auf und teilnehmen“. Ein Raum für echte Gespräche, unterschiedliche Perspektiven und offenen Austausch.",
+  "start": "2026-10-23T18:00:00+02:00",
+  "end": "2026-10-23T21:00:00+02:00",
+  "timezone": "Europe/Berlin",
+  "venue": "WIRkraum · Konnektiv62",
+  "address": "Alaunstraße 62, 01099 Dresden",
+  "mapUrl": "https://www.google.com/maps/search/?api=1&query=Konnektiv62%20Alaunstra%C3%9Fe%2062%2C%2001099%20Dresden",
+  "registrationUrl": "https://www.meetup.com/tur-auf-und-teilnehmen/events/316563696/",
+  "uid": "20261023T180000-tuer-auf-und-teilnehmen@tur-auf-und-teilnehmen.github.io",
+  "status": "published",
+  "featured": false,
+  "assets": {
+    "arrivalVideo": "anreise.mp4",
+    "heroVideo": "kickoff.mp4",
+    "announcementVideo": "announcement.mp4",
+    "teaserImage": "teaser.png"
+  },
+  "legacyIcsPath": "events/tuer-auf-und-teilnehmen-kickoff-2026-10-23.ics",
+  "archiveMedia": [
+    {
+      "asset": "heroVideo",
+      "type": "video",
+      "title": "Kickoff – Save the Date",
+      "description": "Das Video zur Ankündigung des ersten Abends."
+    },
+    {
+      "asset": "announcementVideo",
+      "type": "video",
+      "title": "Die Ankündigung",
+      "description": "Ein weiteres Video aus der Vorbereitung des Kickoffs."
+    },
+    {
+      "asset": "teaserImage",
+      "type": "image",
+      "title": "Das Eventmotiv",
+      "description": "Das veröffentlichte Teaserbild für den 23. Oktober 2026."
+    }
+  ],
+  "archiveLinks": [
+    {
+      "label": "Meetup – ursprüngliches Event",
+      "url": "https://www.meetup.com/tur-auf-und-teilnehmen/events/316563696/"
+    },
+    {
+      "label": "Instagram – Community-Profil",
+      "url": "https://www.instagram.com/tuer_auf_und_teilnehmen/"
+    },
+    {
+      "label": "TikTok – Community-Profil",
+      "url": "https://www.tiktok.com/@tuer_auf_und_teilnehmen"
+    }
+  ]
+}

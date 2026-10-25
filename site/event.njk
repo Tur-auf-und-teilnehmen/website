@@ -1,0 +1,145 @@
+---
+pagination:
+  data: eventData.all
+  size: 1
+  alias: event
+permalink: "events/{{ event.folder }}/index.html"
+eleventyExcludeFromCollections: true
+rootPath: "../../"
+---
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{{ event.summary }}">
+  <link rel="icon" href="../../favicon.ico" sizes="any">
+  <title>{{ event.title }} · Tür auf und teilnehmen</title>
+  <style>
+{% include "site-styles.njk" %}
+{% include "archive-styles.njk" %}
+  </style>
+</head>
+<body>
+  {% include "site-header.njk" %}
+  <main id="top" class="archive-main">
+    <section class="archive-intro archive-intro--event">
+      <div class="wrap">
+        <div class="archive-heading-meta">
+          <div class="archive-breadcrumb-row">
+            <a class="archive-breadcrumb" href="../../archiv/">← Zum Event-Archiv</a>
+          </div>
+          <div class="archive-eyebrow-row">
+            <span class="eyebrow">{% if event.isPast %}Vergangenes Event{% else %}Veranstaltung{% endif %} · {{ event.dateLongYear }}</span>
+          </div>
+        </div>
+        <h1>{{ event.title }}</h1>
+        <p class="lead">{{ event.summary }}</p>
+        <div class="archive-facts">
+          <span><strong>{{ event.displayDate }}</strong> · {{ event.timeRange }}</span>
+          <span>{{ event.venue }} · {{ event.address }}</span>
+        </div>
+        <div class="archive-links">
+          {% if event.isUpcoming and event.registrationUrl %}<a class="btn primary" href="{{ event.registrationUrl }}" target="_blank" rel="noopener noreferrer">Jetzt anmelden</a>{% endif %}
+          {% if event.mapUrl %}<a class="btn" href="{{ event.mapUrl }}" target="_blank" rel="noopener noreferrer">Ort auf Maps ansehen</a>{% endif %}
+          <a class="btn" href="event.ics" download>Kalendereintrag</a>
+        </div>
+      </div>
+    </section>
+
+    {% if event.assetUrls.arrivalVideo %}
+    <div class="wrap visit-media archive-visit" aria-label="Vor Ort bei {{ event.title }}">
+      <div class="visit-reel">
+        <video autoplay muted loop playsinline controls preload="metadata" aria-label="Anreisevideo zum {{ event.title }}">
+          <source src="../../{{ event.assetUrls.arrivalVideo }}" type="video/mp4">
+          Dein Browser unterstützt eingebettete Videos nicht.
+        </video>
+      </div>
+      <div class="visit-copy">
+        <div class="eyebrow">Vor Ort · {{ event.venue }}</div>
+        <h2>Schon mal bis zur Tür.</h2>
+        <p>So haben wir vor dem Treffen den Weg zum Veranstaltungsort gezeigt. Das Anreisevideo und die Einladung bleiben hier als Teil unserer Eventgeschichte erhalten.</p>
+        {% if event.mapUrl %}
+        <div class="hero-actions">
+          <a class="btn" href="{{ event.mapUrl }}" target="_blank" rel="noopener noreferrer">Ort auf Maps ansehen</a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
+
+    {% if event.archiveMedia and event.archiveMedia.length %}
+    <section id="medien">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Medienarchiv</div>
+          <h2>So haben wir den Abend angekündigt.</h2>
+          <p>Die damaligen Videos und Motive, die vor dem Event online waren. Sie dokumentieren die Ankündigung, nicht den tatsächlichen Ablauf vor Ort.</p>
+        </div>
+        <div class="archive-gallery">
+          {% for media in event.archiveMedia %}
+          <article class="archive-gallery-card">
+            {% if media.type == "video" %}
+            <video playsinline controls preload="metadata" aria-label="{{ media.title }}">
+              <source src="../../{{ media.url }}" type="video/mp4">
+              Dein Browser unterstützt eingebettete Videos nicht.
+            </video>
+            {% else %}
+            <img src="../../{{ media.url }}" alt="{{ media.title }}" loading="lazy">
+            {% endif %}
+            <div class="archive-gallery-info">
+              <h3>{{ media.title }}</h3>
+              <p>{{ media.description }}</p>
+            </div>
+          </article>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+    {% endif %}
+
+    {% if event.recapHtml %}
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Rückblick</div>
+          <h2>So war der Abend.</h2>
+        </div>
+        <div class="archive-prose">{{ event.recapHtml | safe }}</div>
+      </div>
+    </section>
+    {% endif %}
+
+    <section id="programm">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Aus der ursprünglichen Ankündigung</div>
+          <h2>Das war geplant.</h2>
+          <p>Hier dokumentieren wir die vorab veröffentlichte Beschreibung und den vorgesehenen Programmablauf.</p>
+        </div>
+        <div class="archive-prose">
+          {{ event.html | safe }}
+        </div>
+      </div>
+    </section>
+
+    {% if event.archiveLinks and event.archiveLinks.length %}
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Im Netz</div>
+          <h2>Weitere Links zum Event.</h2>
+          <p>Die verlinkten Seiten und Kanäle, über die wir damals informiert haben.</p>
+        </div>
+        <div class="archive-links">
+          {% for link in event.archiveLinks %}
+          <a class="btn" href="{{ link.url }}" target="_blank" rel="noopener noreferrer">{{ link.label }}</a>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+    {% endif %}
+  </main>
+  {% include "site-footer.njk" %}
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Tür auf und teilnehmen - ein offener Themenraum in Dresden für neugierige Menschen, echte Gespräche und unterschiedliche Perspektiven.">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <title>Tür auf und teilnehmen</title>
+  <style>
+{% include "site-styles.njk" %}
+  </style>
+</head>
+<body>
+  {% include "site-header.njk" %}
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">Dresden · offen · neugierig</div>
+          <h1>Tür auf.<br>Teilnehmen.</h1>
+          <p class="lead">Ein offener Themenraum für Menschen, die neugierig sind, sich austauschen wollen und Lust auf neue Perspektiven haben. Kein Verkaufsabend. Kein Frontalvortrag. Gute Fragen. Echte Gespräche. Neue Perspektiven, mit denen du etwas anfangen kannst.</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#themen">Themen entdecken</a>
+            <a class="btn primary" href="https://github.com/Tur-auf-und-teilnehmen/website/discussions/1" target="_blank" rel="noopener noreferrer">Über Themen abstimmen</a>
+            {% if featuredEvent %}<a class="btn" href="#termin">Zum nächsten Treffen</a>{% else %}<a class="btn" href="#termin">Nächstes Event in Planung</a>{% endif %}
+            <a class="btn" href="archiv/">Event-Archiv ansehen</a>
+          </div>
+        </div>
+        <aside class="hero-person" aria-label="Organisation von Tür auf und teilnehmen">
+          <div class="hero-person-photo">
+            <img src="assets/toni-renner-portrait-wide.png" alt="Toni Renner, Organisation von Tür auf und teilnehmen">
+          </div>
+          <div class="hero-person-caption">
+            <strong>Toni Renner</strong>
+            <span>Organisation · Tür auf und teilnehmen</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    {% if featuredEvent and featuredEvent.assetUrls.arrivalVideo %}
+    <div class="wrap visit-media" aria-label="Vor Ort bei {{ featuredEvent.title }}">
+      <div class="visit-reel">
+        <video autoplay muted loop playsinline preload="metadata" aria-label="Der Weg zum WIRkraum in Dresden">
+          <source src="{{ featuredEvent.assetUrls.arrivalVideo }}" type="video/mp4">
+          Dein Browser unterstützt eingebettete Videos nicht.
+        </video>
+      </div>
+      <div class="visit-copy">
+        <div class="eyebrow">Vor Ort · {{ featuredEvent.venue }}</div>
+        <h2>Schon mal bis zur Tür.</h2>
+        <p>Ein kurzer Blick auf den Weg zum Veranstaltungsort für {{ featuredEvent.title }} am {{ featuredEvent.dateLong }}.</p>
+        <div class="hero-actions">
+          <a class="btn" href="#termin">Zum Termin</a>
+          {% if featuredEvent.mapUrl %}<a class="btn" href="{{ featuredEvent.mapUrl }}" target="_blank" rel="noopener noreferrer">Ort auf Maps ansehen</a>{% endif %}
+        </div>
+      </div>
+    </div>
+
+    {% endif %}
+    {% if featuredEvent and featuredEvent.assetUrls.heroVideo %}
+    <div class="wrap hero-media">
+      <div class="hero-reel">
+        <video autoplay muted loop playsinline controls preload="metadata" aria-label="Ankündigung: {{ featuredEvent.title }} am {{ featuredEvent.dateLongYear }}">
+          <source src="{{ featuredEvent.assetUrls.heroVideo }}" type="video/mp4">
+          Dein Browser unterstützt eingebettete Videos nicht.
+        </video>
+      </div>
+      <div class="hero-media-copy">
+        <div class="eyebrow">{{ featuredEvent.heroEyebrow }}</div>
+        <h2>{{ featuredEvent.subtitle }}</h2>
+        <p>{{ featuredEvent.summary }}</p>
+        <p class="event-meta">{{ featuredEvent.displayDate }} · {{ featuredEvent.timeRange }} · Dresden{% if featuredEvent.mapUrl %}<br><a href="{{ featuredEvent.mapUrl }}" target="_blank" rel="noopener noreferrer">{{ featuredEvent.locationFull }}</a>{% else %}<br>{{ featuredEvent.locationFull }}{% endif %}</p>
+        <div class="hero-actions" style="margin-top:24px;">
+          {% if featuredEvent.registrationUrl %}<a class="btn primary" href="{{ featuredEvent.registrationUrl }}" target="_blank" rel="noopener noreferrer">Auf Meetup anmelden</a>{% endif %}
+          <button class="btn" type="button" data-event-details>{{ featuredEvent.detailsButton or "Event-Details" }}</button>
+          <a class="btn" href="events/{{ featuredEvent.folder }}/event.ics" download>Termin vormerken</a>
+        </div>
+      </div>
+    </div>
+
+    {% endif %}
+
+    <section id="idee">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Die Idee</div>
+          <h2>Unterschiedliche Themen. Unterschiedliche Menschen.</h2>
+          <p>Es geht nicht darum, schon alles zu wissen. Wir stellen Fragen, teilen Erfahrungen und finden gemeinsam heraus, was davon für uns wirklich relevant ist.</p>
+        </div>
+        <div class="statement">Zuhören. Fragen. Verstehen. Austauschen.</div>
+        <div class="visual" aria-label="Eindruck von Tür auf und teilnehmen">
+          <div class="visual-frame">
+            <img src="assets/tuer-auf-und-teilnehmen.webp" alt="Tür auf und teilnehmen - offene Gesprächsrunde in Dresden">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="themen">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Themen</div>
+          <h2>Was interessiert dich?</h2>
+          <p>Nicht alles verraten wir sofort. Was interessiert dich?</p>
+        </div>
+
+        <div class="topics">
+          <details class="topic"><summary>KI</summary><div class="topic-content"><p>Was davon bringt dir heute wirklich etwas?</p></div></details>
+          <details class="topic"><summary>Finanzen &amp; Finanzbildung</summary><div class="topic-content"><p>Geld verstehen, Zusammenhänge erkennen und bessere Entscheidungen treffen.</p></div></details>
+          <details class="topic"><summary>Schutzengel</summary><div class="topic-content"><p>Was sollte geregelt sein, bevor es plötzlich wichtig wird?</p></div></details>
+          <details class="topic"><summary>Selbstständigkeit</summary><div class="topic-content"><p>Freiheit, Verantwortung und die Dinge dazwischen.</p></div></details>
+          <details class="topic"><summary>Digitalisierung</summary><div class="topic-content"><p>Wo kann Technik Arbeit einfacher machen, statt neue Arbeit zu schaffen?</p></div></details>
+          <details class="topic"><summary>Energie</summary><div class="topic-content"><p>Was lohnt sich wirklich - und für wen?</p></div></details>
+          <details class="topic"><summary>Entscheidungen</summary><div class="topic-content"><p>Was machst du, wenn es keine perfekte Antwort gibt?</p></div></details>
+          <details class="topic"><summary>Und sonst?</summary><div class="topic-content"><p>Gute Gespräche müssen nicht in eine Schublade passen.</p><a class="poll-link" href="https://github.com/Tur-auf-und-teilnehmen/website/discussions/1" target="_blank" rel="noopener noreferrer">→ Über Themen abstimmen</a></div></details>
+        </div>
+
+        <p class="hint">Die Themen wechseln. Was daraus ein Abend wird, entscheidet sich nicht nur auf dieser Seite, sondern mit den Menschen im Raum.</p>
+        <div class="hero-actions">
+          <a class="btn primary vote-cta" href="https://github.com/Tur-auf-und-teilnehmen/website/discussions/1" target="_blank" rel="noopener noreferrer"><span class="desktop-label">Jetzt über das nächste Thema abstimmen</span><span class="mobile-label">Nächstes Thema wählen →</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section id="termin">
+      <div class="wrap">
+        {% if featuredEvent %}
+        <div class="section-head">
+          <div class="eyebrow">{{ featuredEvent.heroEyebrow }}</div>
+          <h2>{{ featuredEvent.subtitle }}</h2>
+          <p>{{ featuredEvent.weekday }}, {{ featuredEvent.dateLongYear }} · {{ featuredEvent.timeRange }} · {{ featuredEvent.venue }}.</p>
+        </div>
+        <div class="event">
+          <div class="event-main">
+            <small>NÄCHSTE VERANSTALTUNG · {{ featuredEvent.title }}</small>
+            <h3 style="font-size:clamp(2.8rem,7vw,5.4rem);line-height:.9;letter-spacing:-.06em;margin:10px 0 18px;">{{ featuredEvent.day }}.<span style="color:var(--accent);">{{ featuredEvent.month }}.</span></h3>
+            <p><strong style="color:var(--text);">{{ featuredEvent.weekday }} · {{ featuredEvent.timeRange }} · Dresden</strong></p>
+            <p>{% if featuredEvent.mapUrl %}<a href="{{ featuredEvent.mapUrl }}" target="_blank" rel="noopener noreferrer">{{ featuredEvent.locationFull }}</a>{% else %}{{ featuredEvent.locationFull }}{% endif %}</p>
+            <div class="hero-actions" style="margin-top:22px;">
+              {% if featuredEvent.registrationUrl %}<a class="btn primary" href="{{ featuredEvent.registrationUrl }}" target="_blank" rel="noopener noreferrer">Jetzt anmelden</a>{% endif %}
+              <button class="btn" type="button" data-event-details>{{ featuredEvent.detailsButton or "Event-Details" }}</button>
+              <a class="btn" href="events/{{ featuredEvent.folder }}/event.ics" download>Termin vormerken</a>
+            </div>
+          </div>
+          <div class="event-side">
+            <strong>{{ featuredEvent.venue }}</strong>
+            <p><b style="color:var(--text);">Datum</b><br>{{ featuredEvent.displayDate }}</p>
+            <p><b style="color:var(--text);">Zeit</b><br>{{ featuredEvent.timeRange }}</p>
+            <p><b style="color:var(--text);">Ort</b><br>{% if featuredEvent.mapUrl %}<a href="{{ featuredEvent.mapUrl }}" target="_blank" rel="noopener noreferrer">{{ featuredEvent.locationFull }}</a>{% else %}{{ featuredEvent.locationFull }}{% endif %}</p>
+            <p><a href="events/{{ featuredEvent.folder }}/">Alle Eventdetails ansehen →</a></p>
+          </div>
+        </div>
+        {% else %}
+        <div class="section-head">
+          <div class="eyebrow">Nächste Veranstaltung</div>
+          <h2>Das nächste Event ist in Planung.</h2>
+          <p>Sobald der nächste Termin feststeht, findest du ihn hier. Bis dahin kannst du dir unsere bisherigen Veranstaltungen ansehen.</p>
+        </div>
+        <div class="event">
+          <div class="event-main">
+            <small>VERGANGENE VERANSTALTUNGEN</small>
+            <h3>Das war bisher los.</h3>
+            <p>Einblicke, Videos, Ankündigungen und das Programm vergangener Treffen haben wir im Archiv gesammelt.</p>
+            <div class="hero-actions" style="margin-top:22px;">
+              <a class="btn primary" href="archiv/">Zum Event-Archiv</a>
+            </div>
+          </div>
+          <div class="event-side">
+            <strong>Zuletzt stattgefunden</strong>
+            {% if eventData.latestPast %}
+            <p><b style="color:var(--text);">Event</b><br><a href="archiv/">{{ eventData.latestPast.title }}</a></p>
+            <p><b style="color:var(--text);">Datum</b><br>{{ eventData.latestPast.displayDate }}</p>
+            <p><a href="events/{{ eventData.latestPast.folder }}/">Rückblick zum Event ansehen →</a></p>
+            {% else %}
+            <p>Hier erscheinen Rückblicke, sobald die ersten Events stattgefunden haben.</p>
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </section>
+
+    {% if featuredEvent %}
+    <dialog class="event-dialog" id="event-details-dialog" aria-labelledby="event-details-title">
+      <div class="event-dialog-shell">
+        <div class="event-dialog-head">
+          <div>
+            <div class="eyebrow">Event · {{ featuredEvent.displayDate }}</div>
+            <h2 id="event-details-title">{{ featuredEvent.title }}</h2>
+          </div>
+          <form method="dialog">
+            <button class="event-dialog-close" type="submit" aria-label="Details schließen">×</button>
+          </form>
+        </div>
+
+        <div class="event-dialog-body">
+          {{ featuredEvent.html | safe }}
+
+          <div class="event-dialog-actions">
+            {% if featuredEvent.registrationUrl %}<a class="btn primary" href="{{ featuredEvent.registrationUrl }}" target="_blank" rel="noopener noreferrer">Jetzt anmelden</a>{% endif %}
+            <a class="btn" href="events/{{ featuredEvent.folder }}/event.ics" download>Termin vormerken</a>
+          </div>
+        </div>
+      </div>
+    </dialog>
+    {% endif %}
+  </main>
+
+  {% include "site-footer.njk" %}
+
+  <script>
+    const eventDialog = document.getElementById('event-details-dialog');
+    document.querySelectorAll('[data-event-details]').forEach((trigger) => {
+      trigger.addEventListener('click', () => eventDialog?.showModal());
+    });
+
+    eventDialog?.addEventListener('click', (event) => {
+      if (event.target === eventDialog) eventDialog.close();
+    });
+  </script>
+</body>
+</html>

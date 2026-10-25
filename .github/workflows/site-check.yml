@@ -11,11 +11,15 @@ permissions:
 
 jobs:
   validate:
-    name: Validate static website
+    name: Build and validate generated website
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 15
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-      - name: Check HTML pages, anchors, and assets
-        run: python3 scripts/check_site.py
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+      - name: Verify generated site
+        run: npm run build

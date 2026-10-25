@@ -1,0 +1,62 @@
+---
+permalink: "archiv/index.html"
+rootPath: "../"
+---
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Vergangene Veranstaltungen von Tür auf und teilnehmen in Dresden – mit Ankündigungen, Videos und Eventinformationen.">
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <title>Event-Archiv · Tür auf und teilnehmen</title>
+  <style>
+{% include "site-styles.njk" %}
+{% include "archive-styles.njk" %}
+  </style>
+</head>
+<body>
+  {% include "site-header.njk" %}
+  <main id="top" class="archive-main">
+    <section class="archive-intro">
+      <div class="wrap">
+        <div class="archive-heading-meta">
+          <div class="archive-breadcrumb-row">
+            <a class="archive-breadcrumb" href="../">← Zur Startseite</a>
+          </div>
+          <div class="archive-eyebrow-row">
+            <span class="eyebrow">Unsere Veranstaltungen</span>
+          </div>
+        </div>
+        <h1>Vergangene Abende.</h1>
+        <p class="lead">Was wir vorbereitet, angekündigt und gemeinsam auf den Weg gebracht haben. Hier bleiben frühere Events mit ihren Medien und Informationen erreichbar.</p>
+      </div>
+    </section>
+    <section aria-label="Vergangene Veranstaltungen">
+      <div class="wrap">
+        <div class="archive-event-grid">
+          {% for event in eventData.past %}
+          <article class="archive-event-card">
+            {% if event.assetUrls.teaserImage %}
+            <a href="../events/{{ event.folder }}/" aria-label="{{ event.title }} ansehen">
+              <img src="../{{ event.assetUrls.teaserImage }}" alt="Ankündigungsmotiv: {{ event.title }}" loading="lazy">
+            </a>
+            {% endif %}
+            <div class="archive-event-card-content">
+              <div class="eyebrow">Rückblick · {{ event.displayDate }}</div>
+              <h3>{{ event.title }}</h3>
+              <p><strong>{{ event.timeRange }}</strong> · {{ event.venue }}</p>
+              <p>{{ event.summary }}</p>
+              <a class="btn primary" href="../events/{{ event.folder }}/">Event-Rückblick ansehen</a>
+            </div>
+          </article>
+          {% else %}
+          <p>Hier findest du die bisherigen Treffen, sobald sie stattgefunden haben.</p>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+  </main>
+  {% include "site-footer.njk" %}
+</body>
+</html>
