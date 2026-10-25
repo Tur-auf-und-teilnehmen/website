@@ -49,3 +49,25 @@ auch die generierten Seiten und Medien. Das Build-Workflow-Artefakt kann über
 GitHub Actions heruntergeladen werden, ohne auf `main` zu deployen.
 
 **Noch kein produktives Deployment aus diesem Feature-Branch.**
+
+
+### Event-Rückblick und Medienarchiv
+
+Das Archiv unter `/archiv/` zeigt vergangene Events mit Bildkarte.
+Eine Eventdetailseite übernimmt die normale Kopfzeile und das Dark-Theme.
+Für den Kickoff sind **alle vier vorhandenen Eventmedien** integriert:
+
+- `anreise.mp4` im Block „Schon mal bis zur Tür“ wie auf der Startseite.
+- `kickoff.mp4` und `announcement.mp4` in der Mediengalerie.
+- `teaser.png` als Archiv-Kachel und in der Galerie.
+- Externe Links: ursprüngliche Meetup-Seite sowie die allgemeinen Community-Profile auf Instagram und TikTok (keine Behauptung, dass diese Profilseiten einzelne Eventbeiträge enthalten).
+
+Die Medien und Links werden in `event.json` über `archiveMedia` bzw. `archiveLinks` gepflegt.
+`content.md` dokumentiert das **vorab angekündigte Programm**, keinen nachträglich
+behaupteten tatsächlichen Ablauf. Für einen authentischen Nachbericht kann optional
+`recap.md` im selben Eventordner angelegt werden. Fotos vom Abend sind noch
+nicht im Repository vorhanden und werden deshalb nicht erfunden.
+
+Die Styles der Startseite sind jetzt in der gemeinsamen Nunjucks-Datei
+`site/_includes/site-styles.njk` abgelegt. Zusätzliche Archiv-Styles
+liegen in `site/_includes/archive-styles.njk`.

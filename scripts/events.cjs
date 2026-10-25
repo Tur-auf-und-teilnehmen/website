@@ -82,6 +82,36 @@ function loadEvents() {
         [label, "events/" + folder + "/" + filename]))
     };
     context.timeRange = context.startTime + "-" + context.endTime + " Uhr";
+    const mediaEntries = data.archiveMedia || [];
+    if (!Array.isArray(mediaEntries)) throw Error(folder + ": archiveMedia must be an array");
+    context.archiveMedia = mediaEntries.map((item, index) => {
+      if (!item || typeof item !== "object" || !["video", "image"].includes(item.type) ||
+        !["string"].includes(typeof item.asset) || !context.assetUrls[item.asset] ||
+        typeof item.title !== "string" || !item.title.trim() ||
+        typeof item.description !== "string") {
+        throw Error(folder + ": invalid archive media at index " + index);
+      }
+      const extension = path.extname(data.assets[item.asset]).toLowerCase();
+      if (item.type === "video" && ![".mp4", ".webm"].includes(extension)) {
+        throw Error(folder + ": archive media type mismatch for " + item.asset);
+      }
+      if (item.type === "image" && ![".png", ".webp", ".jpg", ".jpeg", ".svg", ".gif"].includes(extension)) {
+        throw Error(folder + ": archive media type mismatch for " + item.asset);
+      }
+      return { ...item, url: context.assetUrls[item.asset] };
+    });
+    const external = data.archiveLinks || [];
+    if (!Array.isArray(external)) throw Error(folder + ": archiveLinks must be an array");
+    context.archiveLinks = external.map((item, index) => {
+      if (!item || typeof item.label !== "string" || !item.label.trim() ||
+          typeof item.url !== "string" || !/^https:\/\//.test(item.url)) {
+        throw Error(folder + ": invalid archive link at index " + index);
+      }
+      return item;
+    });
+    const recapFile = path.join(base, "recap.md");
+    context.recapHtml = fs.existsSync(recapFile)
+      ? markdown.render(fs.readFileSync(recapFile,"utf8")) : "";
     let dynamicMd = text;
     for (const key of ["dateLong","dateLongYear","displayDate","weekday","startTime","endTime","venue","title"]) {
       dynamicMd = dynamicMd.replaceAll("{{" + key + "}}", String(context[key] || ""));

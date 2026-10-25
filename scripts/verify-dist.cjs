@@ -23,6 +23,24 @@ for (const event of loadEvents().all) {
     "events/" + event.folder + "/event.ics",...Object.values(event.assetUrls)]) {
     assert.ok(fs.existsSync(path.join(dist,rel)), "Missing output: " + rel);
   }
+  const detail = fs.readFileSync(path.join(dist,"events/" + event.folder + "/index.html"),"utf8");
+  for (const media of event.archiveMedia) {
+    assert.ok(detail.includes("../../" + media.url), "Detail missing media: " + media.url);
+    assert.ok(detail.includes(media.title), "Detail missing media title: " + media.title);
+  }
+  for (const link of event.archiveLinks) {
+    assert.ok(detail.includes(link.url.replace(/&/g,"&amp;")) || detail.includes(link.url),
+      "Detail missing archive link: " + link.url);
+  }
+  if (event.isPast && event.archiveMedia.length) {
+    assert.ok(detail.includes("Schon mal bis zur Tür."), "Missing arrival-video feature");
+    assert.ok(detail.includes("So haben wir den Abend angekündigt."), "Missing historical gallery");
+    assert.ok(!detail.includes(">Jetzt anmelden</a>"), "Past event must not show signup CTA");
+  }
+  if (event.assetUrls.teaserImage && event.isPast) {
+    assert.ok(archive.includes("../" + event.assetUrls.teaserImage),
+      "Archive listing missing teaser image");
+  }
   if (event.legacyIcsPath) {
     const canonical = fs.readFileSync(path.join(dist, "events/" + event.folder + "/event.ics"));
     const legacy = fs.readFileSync(path.join(dist,event.legacyIcsPath));

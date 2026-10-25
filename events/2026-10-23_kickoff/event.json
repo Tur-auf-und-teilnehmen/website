@@ -22,5 +22,39 @@
     "announcementVideo": "announcement.mp4",
     "teaserImage": "teaser.png"
   },
-  "legacyIcsPath": "events/tuer-auf-und-teilnehmen-kickoff-2026-10-23.ics"
+  "legacyIcsPath": "events/tuer-auf-und-teilnehmen-kickoff-2026-10-23.ics",
+  "archiveMedia": [
+    {
+      "asset": "heroVideo",
+      "type": "video",
+      "title": "Kickoff – Save the Date",
+      "description": "Das Video zur Ankündigung des ersten Abends."
+    },
+    {
+      "asset": "announcementVideo",
+      "type": "video",
+      "title": "Die Ankündigung",
+      "description": "Ein weiteres Video aus der Vorbereitung des Kickoffs."
+    },
+    {
+      "asset": "teaserImage",
+      "type": "image",
+      "title": "Das Eventmotiv",
+      "description": "Das veröffentlichte Teaserbild für den 23. Oktober 2026."
+    }
+  ],
+  "archiveLinks": [
+    {
+      "label": "Meetup – ursprüngliches Event",
+      "url": "https://www.meetup.com/tur-auf-und-teilnehmen/events/316563696/"
+    },
+    {
+      "label": "Instagram – Community-Profil",
+      "url": "https://www.instagram.com/tuer_auf_und_teilnehmen/"
+    },
+    {
+      "label": "TikTok – Community-Profil",
+      "url": "https://www.tiktok.com/@tuer_auf_und_teilnehmen"
+    }
+  ]
 }
