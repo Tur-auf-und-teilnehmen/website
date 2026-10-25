@@ -9,9 +9,18 @@ for (const rel of ["index.html","pulseline-qr.html","favicon.ico",
   assert.ok(fs.existsSync(path.join(dist,rel)), "Missing output: " + rel);
 }
 const home = fs.readFileSync(path.join(dist,"index.html"),"utf8");
-// Both desktop navigation and mobile-accessible hero link must lead to the archive.
-assert.ok((home.match(/href="archiv\/"/g) || []).length >= 2,
-  "Homepage must link the archive in navigation and hero");
+// The hero exposes only the next-event CTA; the navigation continues to link
+// the archive, and the no-event section links to past events separately.
+assert.ok(home.includes('href="archiv/">Event-Archiv</a>'),
+  "Navigation must retain the event archive link");
+const hero = home.match(/<section class="hero">[\s\S]*?<div class="hero-actions">([\s\S]*?)<\/div>/);
+assert.ok(hero, "Homepage hero actions missing");
+assert.ok(hero[1].includes('href="#termin">Nächstes Event</a>'),
+  "Hero must contain the new concise event label");
+assert.ok(!hero[1].includes('href="archiv/"'),
+  "Hero must not contain a separate event-archive button");
+assert.ok(!home.includes("Event-Archiv ansehen"),
+  "Obsolete archive CTA must be removed");
 const archive = fs.readFileSync(path.join(dist,"archiv/index.html"),"utf8");
 assert.ok(archive.includes("kickoff"), "Archive must list the past kickoff");
 const eventTitle = fs.readFileSync(path.join(dist,"events/2026-10-23_kickoff/index.html"),"utf8");
@@ -28,7 +37,7 @@ for (const generated of [archive, eventTitle]) {
 }
 assert.ok(archive.indexOf("← Zur Startseite") < archive.indexOf("Unsere Veranstaltungen"),
   "Breadcrumb must precede section label");
-for (const value of ["Tür auf.","Teilnehmen.","Event-Archiv ansehen"]) {
+for (const value of ["Tür auf.","Teilnehmen.","Nächstes Event"]) {
   assert.ok(home.includes(value), "Missing homepage content: " + value);
 }
 const events = loadEvents();
