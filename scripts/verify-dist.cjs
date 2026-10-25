@@ -23,9 +23,9 @@ if (events.featured) {
   assert.ok(home.includes(events.featured.displayDate), "Next event date not rendered");
   assert.ok(home.includes(events.featured.locationFull), "Next event location missing");
   assert.ok(home.includes('id="event-details-dialog"'), "Next event detail dialog missing");
-  assert.ok(!home.includes("Aktuell ist kein Event geplant."), "Unexpected no-events fallback");
+  assert.ok(!home.includes("Das nächste Event ist in Planung."), "Unexpected no-events fallback");
 } else {
-  assert.ok(home.includes("Aktuell ist kein Event geplant."), "No-events fallback missing");
+  assert.ok(home.includes("Das nächste Event ist in Planung."), "No-events fallback missing");
   assert.ok(!home.includes('id="event-details-dialog"'), "Past event dialog still present");
   assert.ok(!home.includes(">Jetzt anmelden</a>"), "No future event must not show signup");
   assert.ok(!home.includes(">Auf Meetup anmelden</a>"), "Old kickoff signup must not appear");

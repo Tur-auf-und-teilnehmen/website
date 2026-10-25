@@ -40,7 +40,7 @@ in `dist/`. `npm run dev` beobachtet Änderungen an Vorlagen und Events.
 
 **Vorschau-Logik (aktuell):** Da der Kickoff am 23.10.2026 bereits vorbei ist
 und noch kein weiterer veröffentlichter Termin erfasst wurde, zeigt die
-Startseite **„Aktuell ist kein Event geplant.“** mit Archiv- und Rückblick-Links.
+Startseite **„Das nächste Event ist in Planung.“** mit Archiv- und Rückblick-Links.
 Vergangene Werbevideos und Anmeldelinks verschwinden von der Startseite;
 sie bleiben im Archiv erhalten. Die alte ICS-URL wird beim Build aus derselben
 JSON generiert.
