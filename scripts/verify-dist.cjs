@@ -9,6 +9,11 @@ for (const rel of ["index.html","pulseline-qr.html","favicon.ico",
   assert.ok(fs.existsSync(path.join(dist,rel)), "Missing output: " + rel);
 }
 const home = fs.readFileSync(path.join(dist,"index.html"),"utf8");
+// Both desktop navigation and mobile-accessible hero link must lead to the archive.
+assert.equal((home.match(/href="archiv\/"/g) || []).length, 2,
+  "Homepage must link the archive in navigation and hero");
+const archive = fs.readFileSync(path.join(dist,"archiv/index.html"),"utf8");
+assert.ok(archive.includes("kickoff"), "Archive must list the past kickoff");
 for (const value of ["Tür auf.","Teilnehmen.","event-details-dialog",
   "23.10.2026","Konnektiv62","events/2026-10-23_kickoff/event.ics"]) {
   assert.ok(home.includes(value), "Missing homepage content: " + value);
