@@ -16,10 +16,12 @@ const archive = fs.readFileSync(path.join(dist,"archiv/index.html"),"utf8");
 assert.ok(archive.includes("kickoff"), "Archive must list the past kickoff");
 const eventTitle = fs.readFileSync(path.join(dist,"events/2026-10-23_kickoff/index.html"),"utf8");
 for (const generated of [archive, eventTitle]) {
-  assert.ok(generated.includes(".archive-breadcrumb { display:flex"),
-    "Archive breadcrumb must start a separate block row");
-  assert.ok(generated.includes(".archive-intro .eyebrow { display:flex"),
-    "Section eyebrow must render on its own row");
+  assert.ok(generated.includes(".archive-heading-meta { display:grid"),
+    "Archive heading must use a two-row grid");
+  assert.ok(generated.includes(".archive-breadcrumb-row,.archive-eyebrow-row { display:block"),
+    "Breadcrumb and label must each occupy a block row");
+  assert.match(generated, /<div class="archive-heading-meta">\s*<div class="archive-breadcrumb-row">[\s\S]*?<\/div>\s*<div class="archive-eyebrow-row">[\s\S]*?<\/div>\s*<\/div>\s*<h1>/,
+    "Breadcrumb and kicker must be separate semantic rows before the heading");
   assert.ok(generated.includes("text-wrap: balance;") &&
             generated.includes("overflow-wrap: anywhere;"),
     "Archive heading must wrap instead of overflowing");

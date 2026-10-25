@@ -25,8 +25,14 @@ rootPath: "../../"
   <main id="top" class="archive-main">
     <section class="archive-intro archive-intro--event">
       <div class="wrap">
-        <a class="archive-breadcrumb" href="../../archiv/">← Zum Event-Archiv</a>
-        <div class="eyebrow">{% if event.isPast %}Vergangenes Event{% else %}Veranstaltung{% endif %} · {{ event.dateLongYear }}</div>
+        <div class="archive-heading-meta">
+          <div class="archive-breadcrumb-row">
+            <a class="archive-breadcrumb" href="../../archiv/">← Zum Event-Archiv</a>
+          </div>
+          <div class="archive-eyebrow-row">
+            <span class="eyebrow">{% if event.isPast %}Vergangenes Event{% else %}Veranstaltung{% endif %} · {{ event.dateLongYear }}</span>
+          </div>
+        </div>
         <h1>{{ event.title }}</h1>
         <p class="lead">{{ event.summary }}</p>
         <div class="archive-facts">

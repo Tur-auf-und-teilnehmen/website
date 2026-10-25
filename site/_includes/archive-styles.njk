@@ -13,10 +13,12 @@
   overflow-wrap: anywhere;
 }
 .archive-intro .lead { max-width: 840px; }
-/* Breadcrumb and eyebrow must occupy separate rows (both used to be inline-flex). */
-.archive-breadcrumb { display:flex;width:fit-content;gap:10px;align-items:center;
-  color:var(--muted);font-size:.95rem;text-decoration:none;margin:0 0 24px; }
-.archive-intro .eyebrow { display:flex;width:fit-content;max-width:100%;flex-wrap:wrap; }
+/* Separate semantic rows prevent breadcrumb and label from flowing inline. */
+.archive-heading-meta { display:grid;grid-template-columns:minmax(0,1fr);justify-items:start;gap:16px;margin-bottom:22px; }
+.archive-breadcrumb-row,.archive-eyebrow-row { display:block;max-width:100%;min-width:0; }
+.archive-breadcrumb { display:inline-flex;width:fit-content;gap:10px;align-items:center;
+  color:var(--muted);font-size:.95rem;text-decoration:none;margin:0; }
+.archive-intro .eyebrow { display:inline-flex;width:fit-content;max-width:100%;flex-wrap:wrap; }
 .archive-breadcrumb:hover { color:var(--accent); }
 .archive-label { margin:22px 0 10px;color:var(--accent);font-weight:800;letter-spacing:.08em; }
 .archive-facts { display:flex;gap:20px;flex-wrap:wrap;margin:18px 0 20px;color:var(--muted); }
@@ -54,7 +56,7 @@
 @media(max-width:780px) {
   .archive-intro {padding:42px 0 20px;}
   .archive-intro h1 {font-size:clamp(2.2rem, 8.5vw, 4rem);line-height:1.1;}
-  .archive-breadcrumb {margin-bottom:20px;}
+  .archive-heading-meta {gap:12px;margin-bottom:18px;}
   .archive-event-card {grid-template-columns:1fr;}
   .archive-event-card img {max-height:360px;}
   .archive-visit .visit-reel {width:min(100%,340px);}
