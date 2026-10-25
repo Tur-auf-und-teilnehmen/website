@@ -1,0 +1,25 @@
+{
+  "id": "kickoff-2026",
+  "title": "Tür auf und teilnehmen",
+  "subtitle": "Der erste Abend steht.",
+  "heroEyebrow": "Save the Date · Kickoff",
+  "eventEyebrow": "Save the Date · Kickoff",
+  "detailsButton": "Details zum Kickoff",
+  "summary": "Kickoff von „Tür auf und teilnehmen“. Ein Raum für echte Gespräche, unterschiedliche Perspektiven und offenen Austausch.",
+  "start": "2026-10-23T18:00:00+02:00",
+  "end": "2026-10-23T21:00:00+02:00",
+  "timezone": "Europe/Berlin",
+  "venue": "WIRkraum · Konnektiv62",
+  "address": "Alaunstraße 62, 01099 Dresden",
+  "mapUrl": "https://www.google.com/maps/search/?api=1&query=Konnektiv62%20Alaunstra%C3%9Fe%2062%2C%2001099%20Dresden",
+  "registrationUrl": "https://www.meetup.com/tur-auf-und-teilnehmen/events/316563696/",
+  "uid": "20261023T180000-tuer-auf-und-teilnehmen@tur-auf-und-teilnehmen.github.io",
+  "status": "published",
+  "featured": true,
+  "assets": {
+    "arrivalVideo": "anreise.mp4",
+    "heroVideo": "kickoff.mp4",
+    "announcementVideo": "announcement.mp4",
+    "teaserImage": "teaser.png"
+  }
+}

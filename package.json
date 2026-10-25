@@ -1,0 +1,15 @@
+{
+  "name": "tuer-auf-und-teilnehmen-website",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "check": "node scripts/check-events.cjs",
+    "build": "npm run check && eleventy && node scripts/verify-dist.cjs",
+    "dev": "eleventy --serve"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "3.1.7",
+    "markdown-it": "14.1.0"
+  },
+  "engines": { "node": ">=20" }
+}

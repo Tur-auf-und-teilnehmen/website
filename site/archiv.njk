@@ -1,0 +1,35 @@
+---
+permalink: "archiv/index.html"
+---
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Event-Archiv · Tür auf und teilnehmen</title>
+<style>
+  :root{color-scheme:dark;font-family:Inter,system-ui,sans-serif;background:#0d0f12;color:#f3f0e8}
+  body{margin:0;line-height:1.6}
+  main{width:min(100% - 40px, 920px);margin:0 auto;padding:70px 0}
+  a{color:#f1b24b} h1{font-size:clamp(2rem,6vw,4rem);line-height:1.1}
+  article{padding:24px;margin:24px 0;border:1px solid #2a3038;border-radius:14px;background:#15191e}
+  .muted{color:#a8adb4}
+</style>
+</head>
+<body>
+<main>
+  <p><a href="../">← Zur Startseite</a></p>
+  <h1>Vergangene Events</h1>
+  <p class="muted">Ein Rückblick auf unsere bisherigen Veranstaltungen.</p>
+  {% for event in eventData.past %}
+  <article>
+    <h2><a href="../events/{{ event.folder }}/">{{ event.title }}</a></h2>
+    <p class="muted">{{ event.displayDate }} · {{ event.timeRange }} · {{ event.venue }}</p>
+    <p>{{ event.summary }}</p>
+  </article>
+  {% else %}
+  <p>Es gibt noch keine vergangenen Events.</p>
+  {% endfor %}
+</main>
+</body>
+</html>

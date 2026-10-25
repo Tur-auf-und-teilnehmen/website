@@ -1,0 +1,50 @@
+---
+pagination:
+  data: eventData.all
+  size: 1
+  alias: event
+permalink: "events/{{ event.folder }}/index.html"
+eleventyExcludeFromCollections: true
+---
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ event.title }} · Tür auf und teilnehmen</title>
+<style>
+  :root{color-scheme:dark;font-family:Inter,system-ui,sans-serif;background:#0d0f12;color:#f3f0e8}
+  body{margin:0;line-height:1.65}
+  main{width:min(100% - 40px,850px);margin:0 auto;padding:70px 0}
+  h1{font-size:clamp(2.2rem,6vw,4.2rem);line-height:1}
+  h2,h3{margin-top:30px}
+  a{color:#f1b24b}
+  .muted{color:#a8adb4}
+  .dialog-note{padding:18px;border-left:3px solid #f1b24b;background:#15191e;border-radius:8px}
+  video{display:block;max-width:390px;width:100%;margin:25px auto;border-radius:12px}
+  .actions{display:flex;flex-wrap:wrap;gap:14px;margin:22px 0}
+  .btn{display:inline-flex;text-decoration:none;padding:11px 16px;background:#f1b24b;color:#17120a;border-radius:8px;font-weight:700}
+</style>
+</head>
+<body>
+<main>
+  <p><a href="../../">← Zur Startseite</a> · <a href="../../archiv/">Event-Archiv</a></p>
+  <p class="muted">{{ event.displayDate }} · {{ event.timeRange }}</p>
+  <h1>{{ event.title }}</h1>
+  <p><strong>{{ event.venue }}</strong> · {{ event.address }}</p>
+  {% if event.assetUrls.heroVideo %}
+  <video muted playsinline controls preload="metadata">
+    <source src="../../{{ event.assetUrls.heroVideo }}" type="video/mp4">
+  </video>
+  {% endif %}
+  <div class="actions">
+    {% if event.isUpcoming and event.registrationUrl %}
+    <a class="btn" href="{{ event.registrationUrl }}">Auf Meetup anmelden</a>
+    {% endif %}
+    <a href="event.ics">Termin als Kalenderdatei</a>
+    {% if event.mapUrl %}<a href="{{ event.mapUrl }}">Ort auf Maps ansehen</a>{% endif %}
+  </div>
+  {{ event.html | safe }}
+</main>
+</body>
+</html>
