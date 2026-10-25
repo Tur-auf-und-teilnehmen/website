@@ -5,7 +5,7 @@
         <div class="navlinks">
           <a href="{{ rootPath }}#idee">Die Idee</a>
           <a href="{{ rootPath }}#themen">Themen</a>
-          <a href="{{ rootPath }}#termin">Nächster Termin</a>
+          <a href="{{ rootPath }}#termin">{% if eventData.featured %}Nächster Termin{% else %}Termine{% endif %}</a>
           <a href="{{ rootPath }}archiv/">Event-Archiv</a>
           <div class="social-links" aria-label="Tür auf und teilnehmen auf Social Media">
             <a class="social-link" href="https://www.meetup.com/tur-auf-und-teilnehmen/" target="_blank" rel="noopener noreferrer" aria-label="Meetup" title="Meetup">

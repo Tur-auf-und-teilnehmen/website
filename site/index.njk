@@ -23,7 +23,7 @@
           <div class="hero-actions">
             <a class="btn primary" href="#themen">Themen entdecken</a>
             <a class="btn primary" href="https://github.com/Tur-auf-und-teilnehmen/website/discussions/1" target="_blank" rel="noopener noreferrer">Über Themen abstimmen</a>
-            <a class="btn" href="#termin">Zum nächsten Treffen</a>
+            {% if featuredEvent %}<a class="btn" href="#termin">Zum nächsten Treffen</a>{% else %}<a class="btn" href="#termin">Aktuell kein Event geplant</a>{% endif %}
             <a class="btn" href="archiv/">Event-Archiv ansehen</a>
           </div>
         </div>
@@ -39,7 +39,8 @@
       </div>
     </section>
 
-    <div class="wrap visit-media" aria-label="Vor Ort bei Tür auf und teilnehmen">
+    {% if featuredEvent and featuredEvent.assetUrls.arrivalVideo %}
+    <div class="wrap visit-media" aria-label="Vor Ort bei {{ featuredEvent.title }}">
       <div class="visit-reel">
         <video autoplay muted loop playsinline preload="metadata" aria-label="Der Weg zum WIRkraum in Dresden">
           <source src="{{ featuredEvent.assetUrls.arrivalVideo }}" type="video/mp4">
@@ -47,19 +48,21 @@
         </video>
       </div>
       <div class="visit-copy">
-        <div class="eyebrow">Vor Ort · WIRkraum</div>
+        <div class="eyebrow">Vor Ort · {{ featuredEvent.venue }}</div>
         <h2>Schon mal bis zur Tür.</h2>
-        <p>Damit du am {{ featuredEvent.dateLong }} nicht erst suchen musst: ein kurzer Blick auf den Weg zum WIRkraum in der Alaunstraße 62.</p>
+        <p>Ein kurzer Blick auf den Weg zum Veranstaltungsort für {{ featuredEvent.title }} am {{ featuredEvent.dateLong }}.</p>
         <div class="hero-actions">
           <a class="btn" href="#termin">Zum Termin</a>
-          <a class="btn" href="{{ featuredEvent.mapUrl }}" target="_blank" rel="noopener noreferrer">Ort auf Maps ansehen</a>
+          {% if featuredEvent.mapUrl %}<a class="btn" href="{{ featuredEvent.mapUrl }}" target="_blank" rel="noopener noreferrer">Ort auf Maps ansehen</a>{% endif %}
         </div>
       </div>
     </div>
 
+    {% endif %}
+    {% if featuredEvent and featuredEvent.assetUrls.heroVideo %}
     <div class="wrap hero-media">
       <div class="hero-reel">
-        <video autoplay muted loop playsinline controls preload="metadata" aria-label="Save the Date - Tür auf und teilnehmen Kickoff am {{ featuredEvent.dateLongYear }}">
+        <video autoplay muted loop playsinline controls preload="metadata" aria-label="Ankündigung: {{ featuredEvent.title }} am {{ featuredEvent.dateLongYear }}">
           <source src="{{ featuredEvent.assetUrls.heroVideo }}" type="video/mp4">
           Dein Browser unterstützt eingebettete Videos nicht.
         </video>
@@ -67,15 +70,17 @@
       <div class="hero-media-copy">
         <div class="eyebrow">{{ featuredEvent.heroEyebrow }}</div>
         <h2>{{ featuredEvent.subtitle }}</h2>
-        <p>Am {{ featuredEvent.dateLong }} öffnen wir zum ersten Mal die Tür. Ein Abend für Menschen, die neugierig sind, Fragen mitbringen und Lust auf unterschiedliche Perspektiven haben.</p>
-        <p class="event-meta">{{ featuredEvent.displayDate }} · {{ featuredEvent.timeRange }} · Dresden<br><a href="{{ featuredEvent.mapUrl }}" target="_blank" rel="noopener noreferrer">{{ featuredEvent.locationFull }}</a></p>
+        <p>{{ featuredEvent.summary }}</p>
+        <p class="event-meta">{{ featuredEvent.displayDate }} · {{ featuredEvent.timeRange }} · Dresden{% if featuredEvent.mapUrl %}<br><a href="{{ featuredEvent.mapUrl }}" target="_blank" rel="noopener noreferrer">{{ featuredEvent.locationFull }}</a>{% else %}<br>{{ featuredEvent.locationFull }}{% endif %}</p>
         <div class="hero-actions" style="margin-top:24px;">
-          <a class="btn primary" href="{{ featuredEvent.registrationUrl }}" target="_blank" rel="noopener noreferrer">Auf Meetup anmelden</a>
-          <button class="btn" type="button" data-event-details>{{ featuredEvent.detailsButton }}</button>
+          {% if featuredEvent.registrationUrl %}<a class="btn primary" href="{{ featuredEvent.registrationUrl }}" target="_blank" rel="noopener noreferrer">Auf Meetup anmelden</a>{% endif %}
+          <button class="btn" type="button" data-event-details>{{ featuredEvent.detailsButton or "Event-Details" }}</button>
           <a class="btn" href="events/{{ featuredEvent.folder }}/event.ics" download>Termin vormerken</a>
         </div>
       </div>
     </div>
+
+    {% endif %}
 
     <section id="idee">
       <div class="wrap">
@@ -121,20 +126,21 @@
 
     <section id="termin">
       <div class="wrap">
+        {% if featuredEvent %}
         <div class="section-head">
           <div class="eyebrow">{{ featuredEvent.heroEyebrow }}</div>
           <h2>{{ featuredEvent.subtitle }}</h2>
-          <p>Freitag, {{ featuredEvent.dateLongYear }}. Wir starten um {{ featuredEvent.startTime }} Uhr. Der offizielle Teil endet gegen 20:30 Uhr, danach bleibt bis {{ featuredEvent.endTime }} Uhr Zeit zum Weiterreden.</p>
+          <p>{{ featuredEvent.weekday }}, {{ featuredEvent.dateLongYear }} · {{ featuredEvent.timeRange }} · {{ featuredEvent.venue }}.</p>
         </div>
         <div class="event">
           <div class="event-main">
-            <small>ERSTER TERMIN · KICKOFF</small>
+            <small>NÄCHSTE VERANSTALTUNG · {{ featuredEvent.title }}</small>
             <h3 style="font-size:clamp(2.8rem,7vw,5.4rem);line-height:.9;letter-spacing:-.06em;margin:10px 0 18px;">{{ featuredEvent.day }}.<span style="color:var(--accent);">{{ featuredEvent.month }}.</span></h3>
-            <p><strong style="color:var(--text);">Freitag · {{ featuredEvent.timeRange }} · Dresden</strong></p>
-            <p><a href="{{ featuredEvent.mapUrl }}" target="_blank" rel="noopener noreferrer">{{ featuredEvent.locationFull }}</a></p>
+            <p><strong style="color:var(--text);">{{ featuredEvent.weekday }} · {{ featuredEvent.timeRange }} · Dresden</strong></p>
+            <p>{% if featuredEvent.mapUrl %}<a href="{{ featuredEvent.mapUrl }}" target="_blank" rel="noopener noreferrer">{{ featuredEvent.locationFull }}</a>{% else %}{{ featuredEvent.locationFull }}{% endif %}</p>
             <div class="hero-actions" style="margin-top:22px;">
-              <a class="btn primary" href="{{ featuredEvent.registrationUrl }}" target="_blank" rel="noopener noreferrer">Platz auf Meetup sichern</a>
-              <button class="btn" type="button" data-event-details>{{ featuredEvent.detailsButton }}</button>
+              {% if featuredEvent.registrationUrl %}<a class="btn primary" href="{{ featuredEvent.registrationUrl }}" target="_blank" rel="noopener noreferrer">Jetzt anmelden</a>{% endif %}
+              <button class="btn" type="button" data-event-details>{{ featuredEvent.detailsButton or "Event-Details" }}</button>
               <a class="btn" href="events/{{ featuredEvent.folder }}/event.ics" download>Termin vormerken</a>
             </div>
           </div>
@@ -142,19 +148,47 @@
             <strong>{{ featuredEvent.venue }}</strong>
             <p><b style="color:var(--text);">Datum</b><br>{{ featuredEvent.displayDate }}</p>
             <p><b style="color:var(--text);">Zeit</b><br>{{ featuredEvent.timeRange }}</p>
-            <p><b style="color:var(--text);">Ort</b><br><a href="{{ featuredEvent.mapUrl }}" target="_blank" rel="noopener noreferrer">{{ featuredEvent.locationFull }}</a></p>
-            <p><b style="color:var(--text);">Meetup</b><br><a href="{{ featuredEvent.registrationUrl }}" target="_blank" rel="noopener noreferrer">Kickoff ansehen &amp; anmelden →</a></p>
+            <p><b style="color:var(--text);">Ort</b><br>{% if featuredEvent.mapUrl %}<a href="{{ featuredEvent.mapUrl }}" target="_blank" rel="noopener noreferrer">{{ featuredEvent.locationFull }}</a>{% else %}{{ featuredEvent.locationFull }}{% endif %}</p>
+            <p><a href="events/{{ featuredEvent.folder }}/">Alle Eventdetails ansehen →</a></p>
           </div>
         </div>
+        {% else %}
+        <div class="section-head">
+          <div class="eyebrow">Nächste Veranstaltung</div>
+          <h2>Aktuell ist kein Event geplant.</h2>
+          <p>Sobald der nächste Termin feststeht, findest du ihn hier. Bis dahin kannst du dir unsere bisherigen Veranstaltungen ansehen.</p>
+        </div>
+        <div class="event">
+          <div class="event-main">
+            <small>VERGANGENE VERANSTALTUNGEN</small>
+            <h3>Das war bisher los.</h3>
+            <p>Einblicke, Videos, Ankündigungen und das Programm vergangener Treffen haben wir im Archiv gesammelt.</p>
+            <div class="hero-actions" style="margin-top:22px;">
+              <a class="btn primary" href="archiv/">Zum Event-Archiv</a>
+            </div>
+          </div>
+          <div class="event-side">
+            <strong>Zuletzt stattgefunden</strong>
+            {% if eventData.latestPast %}
+            <p><b style="color:var(--text);">Event</b><br><a href="archiv/">{{ eventData.latestPast.title }}</a></p>
+            <p><b style="color:var(--text);">Datum</b><br>{{ eventData.latestPast.displayDate }}</p>
+            <p><a href="events/{{ eventData.latestPast.folder }}/">Rückblick zum Event ansehen →</a></p>
+            {% else %}
+            <p>Hier erscheinen Rückblicke, sobald die ersten Events stattgefunden haben.</p>
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
       </div>
     </section>
 
+    {% if featuredEvent %}
     <dialog class="event-dialog" id="event-details-dialog" aria-labelledby="event-details-title">
       <div class="event-dialog-shell">
         <div class="event-dialog-head">
           <div>
-            <div class="eyebrow">Kickoff · {{ featuredEvent.displayDate }}</div>
-            <h2 id="event-details-title">Tür auf und teilnehmen</h2>
+            <div class="eyebrow">Event · {{ featuredEvent.displayDate }}</div>
+            <h2 id="event-details-title">{{ featuredEvent.title }}</h2>
           </div>
           <form method="dialog">
             <button class="event-dialog-close" type="submit" aria-label="Details schließen">×</button>
@@ -165,12 +199,13 @@
           {{ featuredEvent.html | safe }}
 
           <div class="event-dialog-actions">
-            <a class="btn primary" href="{{ featuredEvent.registrationUrl }}" target="_blank" rel="noopener noreferrer">Auf Meetup anmelden</a>
+            {% if featuredEvent.registrationUrl %}<a class="btn primary" href="{{ featuredEvent.registrationUrl }}" target="_blank" rel="noopener noreferrer">Jetzt anmelden</a>{% endif %}
             <a class="btn" href="events/{{ featuredEvent.folder }}/event.ics" download>Termin vormerken</a>
           </div>
         </div>
       </div>
     </dialog>
+    {% endif %}
   </main>
 
   {% include "site-footer.njk" %}

@@ -10,13 +10,32 @@ for (const rel of ["index.html","pulseline-qr.html","favicon.ico",
 }
 const home = fs.readFileSync(path.join(dist,"index.html"),"utf8");
 // Both desktop navigation and mobile-accessible hero link must lead to the archive.
-assert.equal((home.match(/href="archiv\/"/g) || []).length, 2,
+assert.ok((home.match(/href="archiv\/"/g) || []).length >= 2,
   "Homepage must link the archive in navigation and hero");
 const archive = fs.readFileSync(path.join(dist,"archiv/index.html"),"utf8");
 assert.ok(archive.includes("kickoff"), "Archive must list the past kickoff");
-for (const value of ["Tür auf.","Teilnehmen.","event-details-dialog",
-  "23.10.2026","Konnektiv62","events/2026-10-23_kickoff/event.ics"]) {
+for (const value of ["Tür auf.","Teilnehmen.","Event-Archiv ansehen"]) {
   assert.ok(home.includes(value), "Missing homepage content: " + value);
+}
+const events = loadEvents();
+if (events.featured) {
+  assert.ok(home.includes("Nächster Termin"), "Upcoming event navigation missing");
+  assert.ok(home.includes(events.featured.displayDate), "Next event date not rendered");
+  assert.ok(home.includes(events.featured.locationFull), "Next event location missing");
+  assert.ok(home.includes("event-details-dialog"), "Next event detail dialog missing");
+  assert.ok(!home.includes("Aktuell ist kein Event geplant."), "Unexpected no-events fallback");
+} else {
+  assert.ok(home.includes("Aktuell ist kein Event geplant."), "No-events fallback missing");
+  assert.ok(!home.includes("event-details-dialog"), "Past event dialog still present");
+  assert.ok(!home.includes(">Jetzt anmelden</a>"), "No future event must not show signup");
+  assert.ok(!home.includes(">Auf Meetup anmelden</a>"), "Old kickoff signup must not appear");
+  assert.ok(!home.includes("events/2026-10-23_kickoff/anreise.mp4"), "Old arrival promo must be hidden");
+  assert.ok(!home.includes("events/2026-10-23_kickoff/kickoff.mp4"), "Old video promo must be hidden");
+  if (events.latestPast) {
+    assert.ok(home.includes(events.latestPast.displayDate), "Latest archived date missing");
+    assert.ok(home.includes("events/" + events.latestPast.folder + "/"),
+      "Latest event recap link missing");
+  }
 }
 for (const event of loadEvents().all) {
   for (const rel of ["events/" + event.folder + "/index.html",

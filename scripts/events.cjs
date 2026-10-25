@@ -7,14 +7,15 @@ const root = path.resolve(__dirname, "..");
 const eventRoot = path.join(root, "events");
 const markdown = new MarkdownIt({ html: true, linkify: true });
 const folderPattern = /^\d{4}-\d{2}-\d{2}_[a-z0-9]+(?:-[a-z0-9]+)*$/;
-const required = ["id", "title", "start", "end", "timezone", "venue", "address", "registrationUrl"];
+const required = ["id", "title", "start", "end", "timezone", "venue", "address"];
 const fmt = (date, opts) => new Intl.DateTimeFormat("de-DE", {
   timeZone: "Europe/Berlin", ...opts
 }).format(date);
 const safeAsset = /^(?:[a-z0-9][-a-z0-9]*\/)*[a-z0-9][-a-z0-9]*\.(?:png|webp|jpe?g|svg|mp4|webm|gif)$/i;
 
-function loadEvents() {
-  const now = new Date();
+function loadEvents({ now = new Date() } = {}) {
+  now = new Date(now);
+  if (!Number.isFinite(now.valueOf())) throw Error("Invalid event evaluation date");
   const ids = new Set();
   const dirs = fs.readdirSync(eventRoot, { withFileTypes: true })
     .filter(d => d.isDirectory() && folderPattern.test(d.name))
@@ -47,8 +48,12 @@ function loadEvents() {
     if (!["published", "draft", "cancelled"].includes(data.status)) {
       throw Error(folder + ": unsupported status");
     }
-    if (!/^https:\/\//.test(data.registrationUrl)) {
+    if (data.registrationUrl != null &&
+        (typeof data.registrationUrl !== "string" || !/^https:\/\//.test(data.registrationUrl))) {
       throw Error(folder + ": registrationUrl must use HTTPS");
+    }
+    if (data.featured != null && typeof data.featured !== "boolean") {
+      throw Error(folder + ": featured must be a boolean");
     }
     if (!data.assets || typeof data.assets !== "object" || Array.isArray(data.assets)) {
       throw Error(folder + ": assets must be an object");
@@ -118,17 +123,23 @@ function loadEvents() {
     }
     context.html = markdown.render(dynamicMd);
     context.isPast = end <= now;
-    context.isUpcoming = start > now && data.status === "published";
+    // Events already running remain visible until their end time.
+    context.isUpcoming = end > now && data.status === "published";
     return context;
   }).filter(e => e.status !== "draft");
 
   all.sort((a,b) => new Date(a.start) - new Date(b.start));
-  const featured = all.find(e => e.featured) || all.find(e => e.isUpcoming) || all[0];
-  if (!featured) throw Error("At least one published preview event is required");
+  const upcoming = all.filter(e => e.isUpcoming);
+  const marked = upcoming.filter(e => e.featured === true);
+  if (marked.length > 1) {
+    throw Error("Only one upcoming published event can be marked featured:true");
+  }
+  const past = all.filter(e => e.isPast).sort((a,b) => new Date(b.end) - new Date(a.end));
+  // Never feature historical events, even if old configs still contain featured:true.
+  const featured = marked[0] || upcoming[0] || null;
   return {
-    all, featured,
-    upcoming: all.filter(e => e.isUpcoming),
-    past: all.filter(e => e.isPast).sort((a,b) => new Date(b.end) - new Date(a.end))
+    all, featured, upcoming, past,
+    latestPast: past[0] || null
   };
 }
 module.exports = { loadEvents };
