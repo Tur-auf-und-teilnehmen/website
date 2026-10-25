@@ -14,6 +14,18 @@ assert.ok((home.match(/href="archiv\/"/g) || []).length >= 2,
   "Homepage must link the archive in navigation and hero");
 const archive = fs.readFileSync(path.join(dist,"archiv/index.html"),"utf8");
 assert.ok(archive.includes("kickoff"), "Archive must list the past kickoff");
+const eventTitle = fs.readFileSync(path.join(dist,"events/2026-10-23_kickoff/index.html"),"utf8");
+for (const generated of [archive, eventTitle]) {
+  assert.ok(generated.includes(".archive-breadcrumb { display:flex"),
+    "Archive breadcrumb must start a separate block row");
+  assert.ok(generated.includes(".archive-intro .eyebrow { display:flex"),
+    "Section eyebrow must render on its own row");
+  assert.ok(generated.includes("text-wrap: balance;") &&
+            generated.includes("overflow-wrap: anywhere;"),
+    "Archive heading must wrap instead of overflowing");
+}
+assert.ok(archive.indexOf("← Zur Startseite") < archive.indexOf("Unsere Veranstaltungen"),
+  "Breadcrumb must precede section label");
 for (const value of ["Tür auf.","Teilnehmen.","Event-Archiv ansehen"]) {
   assert.ok(home.includes(value), "Missing homepage content: " + value);
 }

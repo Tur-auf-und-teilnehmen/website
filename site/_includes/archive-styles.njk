@@ -3,14 +3,20 @@
 .archive-main { min-height: 65vh; }
 .archive-intro { padding: 84px 0 34px; }
 .archive-intro h1 {
-  font-size: clamp(3rem, 7vw, 6.25rem);
-  max-width: 880px;
-  margin: 20px 0 18px;
-  line-height: .98;
+  /* Keep long archive and event titles within the available content width. */
+  max-width: 100%;
+  font-size: clamp(2.5rem, 5.8vw, 5.5rem);
+  line-height: 1.06;
+  letter-spacing: -.05em;
+  margin: 16px 0 22px;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
 }
 .archive-intro .lead { max-width: 840px; }
-.archive-breadcrumb { display:inline-flex;gap:10px;align-items:center;
-  color:var(--muted);font-size:.95rem;text-decoration:none;margin-bottom:26px; }
+/* Breadcrumb and eyebrow must occupy separate rows (both used to be inline-flex). */
+.archive-breadcrumb { display:flex;width:fit-content;gap:10px;align-items:center;
+  color:var(--muted);font-size:.95rem;text-decoration:none;margin:0 0 24px; }
+.archive-intro .eyebrow { display:flex;width:fit-content;max-width:100%;flex-wrap:wrap; }
 .archive-breadcrumb:hover { color:var(--accent); }
 .archive-label { margin:22px 0 10px;color:var(--accent);font-weight:800;letter-spacing:.08em; }
 .archive-facts { display:flex;gap:20px;flex-wrap:wrap;margin:18px 0 20px;color:var(--muted); }
@@ -47,6 +53,8 @@
 .archive-divider {height:1px;background:var(--line);margin:28px 0 0;}
 @media(max-width:780px) {
   .archive-intro {padding:42px 0 20px;}
+  .archive-intro h1 {font-size:clamp(2.2rem, 8.5vw, 4rem);line-height:1.1;}
+  .archive-breadcrumb {margin-bottom:20px;}
   .archive-event-card {grid-template-columns:1fr;}
   .archive-event-card img {max-height:360px;}
   .archive-visit .visit-reel {width:min(100%,340px);}
