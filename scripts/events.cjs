@@ -13,16 +13,16 @@ const fmt = (date, opts) => new Intl.DateTimeFormat("de-DE", {
 }).format(date);
 const safeAsset = /^(?:[a-z0-9][-a-z0-9]*\/)*[a-z0-9][-a-z0-9]*\.(?:png|webp|jpe?g|svg|mp4|webm|gif)$/i;
 
-function loadEvents({ now = new Date() } = {}) {
+function loadEvents({ now = new Date(), eventsDir = eventRoot } = {}) {
   now = new Date(now);
   if (!Number.isFinite(now.valueOf())) throw Error("Invalid event evaluation date");
   const ids = new Set();
-  const dirs = fs.readdirSync(eventRoot, { withFileTypes: true })
+  const dirs = fs.readdirSync(eventsDir, { withFileTypes: true })
     .filter(d => d.isDirectory() && folderPattern.test(d.name))
     .map(d => d.name).sort();
 
   const all = dirs.map(folder => {
-    const base = path.join(eventRoot, folder);
+    const base = path.join(eventsDir, folder);
     const configPath = path.join(base, "event.json");
     if (!fs.existsSync(configPath)) throw Error("Missing " + configPath);
     const data = JSON.parse(fs.readFileSync(configPath, "utf8"));
