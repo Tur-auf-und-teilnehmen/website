@@ -1,18 +1,20 @@
 # Tür auf und teilnehmen – Website
 
-## Draft: Markdown + Events + Eleventy
+## Markdown + Events + Eleventy
 
-Der **produktive** Stand bleibt auf `main`. Auf
-[`feature/2-website-refresh`](https://github.com/Tur-auf-und-teilnehmen/website/tree/feature/2-website-refresh)
-liegt die erste Vorschau mit dem bisherigen Startseiten-Design.
-Die neue Generierung ersetzt das vorhandene Live-Deployment **noch nicht**.
+Der Quellcode liegt auf `main`. Die statische Website wird per Eleventy aus
+Nunjucks, Markdown und `event.json` nach `dist/` gebaut. Das
+Deployment läuft über `.github/workflows/pages-publish.yml` auf Push und
+stündlich (UTC-Minute 17); GitHub Pages muss dafür unter **Settings → Pages →
+Build and deployment → Source → GitHub Actions** stehen. Bis zur Umstellung
+wird weiterhin die bisherige `index.html` aus dem Repository veröffentlicht.
 
 ### Lokal starten (Node.js 20 oder neuer)
 
 ```bash
 git clone https://github.com/Tur-auf-und-teilnehmen/website.git
 cd website
-git switch feature/2-website-refresh
+git switch main
 npm install
 npm run build
 npm run dev
@@ -47,9 +49,9 @@ JSON generiert.
 
 `npm run check` validiert Eventdaten. `npm run build` prüft anschließend
 auch die generierten Seiten und Medien. Das Build-Workflow-Artefakt kann über
-GitHub Actions heruntergeladen werden, ohne auf `main` zu deployen.
+GitHub Actions heruntergeladen werden, als CI-Vorschau bereithalten.
 
-**Noch kein produktives Deployment aus diesem Feature-Branch.**
+**Die neue Live-Veröffentlichung setzt die GitHub-Pages-Quelle „GitHub Actions“ voraus.**
 
 
 ### Event-Rückblick und Medienarchiv
@@ -88,8 +90,8 @@ laufenden Abends sichtbar und wandern nach der Endzeit automatisch ins Archiv.
   mehrere Markierungen sind ein Validierungsfehler.
 - Ist kein Event markiert, wird der **chronologisch früheste** kommende
   Termin automatisch verwendet.
-- Wenn kein Event mehr ansteht, wird die Seite mit „Aktuell ist kein Event
-  geplant.“ und einem Link auf Archiv und letzten Rückblick erzeugt.
+- Wenn kein Event mehr ansteht, wird die Seite mit „Das nächste Event ist in
+  Planung.“ und einem Link auf Archiv und letzten Rückblick erzeugt.
 - Das Feld `featured` einer alten Veranstaltung wird automatisch ignoriert;
   der Kickoff hat jetzt `"featured": false`.
 
@@ -102,11 +104,9 @@ Datum/Uhrzeit sind ISO 8601 inklusive Zeitzonenoffset; `timezone` lautet
 `.github/workflows/pages-publish.yml` führt nach Übernahme in `main`
 bei jedem Push und zusätzlich stündlich (UTC Minute 17) `npm run build`
 aus, prüft die Ausgabe und kann sie über GitHub Pages veröffentlichen.
-Das wird **erst nach dem Merge in `main`** aktiv: GitHub Actions `schedule`
-läuft nur auf dem Default-Branch. Vor dem Wechsel muss in
+GitHub Actions `schedule` läuft ausschließlich auf dem Default-Branch. Vor dem Wechsel muss in
 **Settings → Pages → Build and deployment → Source → GitHub Actions**
-als Veröffentlichungsquelle eingestellt werden. Bis dahin bleibt die
-bestehende Branch-Veröffentlichung unangetastet und der Branch erstellt
-nur Vorschau-Artefakte. GitHub-Zeitpläne können sich verzögern und sind nicht
+als Veröffentlichungsquelle eingestellt werden. Bis zur Umstellung liefert die bestehende Branch-Veröffentlichung weiterhin
+nur die ursprüngliche statische Startseite. GitHub-Zeitpläne können sich verzögern und sind nicht
 minutengenau garantiert; für sekundengenaue Umschaltungen wäre später eine
 zusätzliche Client-Lösung erforderlich.
