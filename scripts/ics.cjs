@@ -27,7 +27,16 @@ function writeCalendars() {
     ];
     const directory = path.join(root,"dist","events",event.folder);
     fs.mkdirSync(directory,{recursive:true});
-    fs.writeFileSync(path.join(directory,"event.ics"),lines.join("\r\n"),"utf8");
+    const calendar = lines.join("\r\n");
+    fs.writeFileSync(path.join(directory,"event.ics"),calendar,"utf8");
+    if (event.legacyIcsPath) {
+      if (!/^events\/[a-z0-9_-]+\.ics$/.test(event.legacyIcsPath)) {
+        throw Error("Unsafe legacy ICS path: " + event.legacyIcsPath);
+      }
+      const alias = path.join(root,"dist",event.legacyIcsPath);
+      fs.mkdirSync(path.dirname(alias),{recursive:true});
+      fs.writeFileSync(alias,calendar,"utf8");
+    }
   }
 }
 module.exports = { writeCalendars };

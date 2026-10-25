@@ -9,7 +9,6 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("favicon.ico");
   eleventyConfig.addPassthroughCopy("pulseline-qr.html");
   eleventyConfig.addPassthroughCopy("events/**/*.{mp4,webm,png,jpg,jpeg,webp,svg,gif}");
-  eleventyConfig.addPassthroughCopy("events/tuer-auf-und-teilnehmen-kickoff-2026-10-23.ics");
 
   eleventyConfig.addWatchTarget("events/");
   eleventyConfig.on("eleventy.after", () => writeCalendars());

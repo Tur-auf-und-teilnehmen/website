@@ -18,6 +18,11 @@ for (const event of loadEvents().all) {
     "events/" + event.folder + "/event.ics",...Object.values(event.assetUrls)]) {
     assert.ok(fs.existsSync(path.join(dist,rel)), "Missing output: " + rel);
   }
+  if (event.legacyIcsPath) {
+    const canonical = fs.readFileSync(path.join(dist, "events/" + event.folder + "/event.ics"));
+    const legacy = fs.readFileSync(path.join(dist,event.legacyIcsPath));
+    assert.deepEqual(legacy,canonical,"Legacy calendar must match generated event calendar");
+  }
   for (const rel of ["events/" + event.folder + "/event.json",
     "events/" + event.folder + "/content.md"]) {
     assert.ok(!fs.existsSync(path.join(dist,rel)), "Source content exposed: " + rel);

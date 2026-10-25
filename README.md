@@ -42,7 +42,7 @@ in `dist/`. `npm run dev` beobachtet Änderungen an Vorlagen und Events.
 Startseite hervorgehoben, damit man das ursprüngliche Layout vergleichen kann.
 Er erscheint zusätzlich bereits im generierten Archiv. Die endgültige
 Startseitenlogik „nächster Termin oder Leermeldung“ folgt nach dem Designreview.
-Bei der Migration blieben die alten Medien-/ICS-Dateien erhalten.
+Alte Medien-URLs bleiben erhalten; die alte ICS-URL wird beim Build aus derselben JSON erneut erzeugt.
 
 `npm run check` validiert Eventdaten. `npm run build` prüft anschließend
 auch die generierten Seiten und Medien. Das Build-Workflow-Artefakt kann über
